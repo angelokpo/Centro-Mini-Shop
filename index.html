@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro Mini Shop | Sunchales - Tienda Online 24hs</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-brand: #1453b8;
+            --azul-dark: #092857;
+            --rojo-brand: #c1272d;
+            --rojo-neon: #ff2d37;
+            --amarillo: #ffc700;
+            --celeste-bg: #eaf3fd;
+            --gris-bg: #f2f5f9;
+            --gris-card: #ffffff;
+            --gris-borde: #e1e7f0;
+            --texto-oscuro: #172133;
+            --texto-mutado: #64748b;
+            --sombra-card: 0 10px 24px -6px rgba(20, 83, 184, 0.1), 0 4px 8px -4px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--gris-bg);
+            color: var(--texto-oscuro);
+            padding-bottom: 90px;
+        }
+
+        .heading-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* 1. Tira de Marquesina Animada (Ticker) */
+        .marquee-container {
+            background: var(--rojo-brand);
+            color: #fff;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            height: 38px;
+            box-shadow: 0 2px 6px rgba(193, 39, 45, 0.3);
+            border-bottom: 2px solid var(--amarillo);
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 22s linear infinite;
+            gap: 40px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .marquee-track span {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .marquee-track span i {
+            color: var(--amarillo);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* 2. Navbar Principal */
+        header {
+            background: linear-gradient(135deg, var(--azul-brand), var(--azul-dark));
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(9, 40, 87, 0.25);
+        }
+
+        .nav-wrapper {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-badge {
+            background: #fff;
+            color: var(--rojo-brand);
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            border: 2px solid var(--amarillo);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .logo-text h1 {
+            color: #fff;
+            font-size: 1.35rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text h1 span {
+            color: var(--amarillo);
+        }
+
+        .logo-text small {
+            color: #d2e4ff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 480px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            background: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.25s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--amarillo);
+            box-shadow: 0 0 12px rgba(255, 199, 0, 0.4);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--texto-mutado);
+        }
+
+        .btn-cart-nav {
+            background: var(--amarillo);
+            color: var(--azul-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(255, 199, 0, 0.35);
+        }
+
+        .btn-cart-nav:hover {
+            transform: translateY(-2px);
+            background: #ffd333;
+        }
+
+        .cart-badge-nav {
+            background: var(--rojo-brand);
+            color: #fff;
+            font-size: 0.78rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        /* 3. Slider de Banners / Carteles que Pasan */
+        .slider-section {
+            max-width: 1250px;
+            margin: 20px auto 10px;
+            padding: 0 20px;
+        }
+
+        .carousel-container {
+            position: relative;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(9, 40, 87, 0.18);
+            height: 240px;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transform: scale(1.03);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            color: #fff;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .slide-bg-1 {
+            background: linear-gradient(110deg, #092857 0%, #1453b8 60%, #1e6bf2 100%);
+        }
+
+        .slide-bg-2 {
+            background: linear-gradient(110deg, #991419 0%, #c1272d 55%, #e63946 100%);
+        }
+
+        .slide-bg-3 {
+            background: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #334155 100%);
+        }
+
+        .slide-content h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .slide-content h2 span {
+            color: var(--amarillo);
+        }
+
+        .slide-content p {
+            font-size: 1.05rem;
+            color: #f1f5f9;
+            margin-bottom: 16px;
+        }
+
+        .slide-tag {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slide-illustration {
+            font-size: 6.5rem;
+            color: rgba(255, 255, 255, 0.25);
+            transform: rotate(-10deg);
+        }
+
+        /* Controles y Puntos del Slider */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(5px);
+            border: none;
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .slider-arrow:hover {
+            background: var(--amarillo);
+            color: var(--azul-dark);
+        }
+
+        .slider-arrow.prev { left: 15px; }
+        .slider-arrow.next { right: 15px; }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--amarillo);
+            width: 26px;
+            border-radius: 8px;
+        }
+
+        /* 4. Cartel Info / Envíos Sunchales */
+        .info-cards-section {
+            max-width: 1250px;
+            margin: 15px auto 0;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-left: 4px solid var(--azul-brand);
+        }
+
+        .info-card i {
+            font-size: 1.8rem;
+            color: var(--azul-brand);
+        }
+
+        .info-card h4 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--texto-oscuro);
+        }
+
+        .info-card p {
+            font-size: 0.75rem;
+            color: var(--texto-mutado);
+        }
+
+        /* 5. Barra de Categorías */
+        .categories-container {
+            max-width: 1250px;
+            margin: 25px auto 10px;
+            padding: 0 20px;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scrollbar-width: none;
+        }
+        .categories-scroll::-webkit-scrollbar { display: none; }
+
+        .cat-pill {
+            background: #fff;
+            border: 1.5px solid var(--gris-borde);
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--texto-oscuro);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .cat-pill i {
+            color: var(--azul-brand);
+            font-size: 1rem;
+        }
+
+        .cat-pill.active, .cat-pill:hover {
+            background: var(--azul-brand);
+            color: #fff;
+            border-color: var(--azul-brand);
+            box-shadow: 0 6px 15px rgba(20, 83, 184, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .cat-pill.active i, .cat-pill:hover i {
+            color: var(--amarillo);
+        }
+
+        /* 6. Grilla de Productos con Fotos Reales */
+        .catalog-container {
+            max-width: 1250px;
+            margin: 15px auto;
+            padding: 0 20px;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 18px;
+        }
+
+        .product-card {
+            background: var(--gris-card);
+            border: 1px solid var(--gris-borde);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: var(--sombra-card);
+            transition: all 0.25s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 28px -8px rgba(20, 83, 184, 0.2);
+            border-color: #cbd5e1;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--rojo-brand);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 6px;
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(193, 39, 45, 0.3);
+        }
+
+        .img-wrapper {
+            width: 100%;
+            height: 160px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            position: relative;
+            border-bottom: 1px solid var(--gris-borde);
+        }
+
+        .img-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .product-details {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-cat-name {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--azul-brand);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .product-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--texto-oscuro);
+            margin-bottom: 10px;
+            min-height: 36px;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .current-price {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--rojo-brand);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .old-price {
+            font-size: 0.8rem;
+            color: var(--texto-mutado);
+            text-decoration: line-through;
+        }
+
+        .btn-add {
+            background: var(--azul-brand);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-add:hover {
+            background: var(--azul-dark);
+        }
+
+        .btn-add:active {
+            transform: scale(0.97);
+        }
+
+        /* 7. Drawer Lateral del Carrito */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(9, 40, 87, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.show { opacity: 1; visibility: visible; }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -440px;
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            background: #fff;
+            z-index: 999;
+            box-shadow: -6px 0 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cart-drawer.show { right: 0; }
+
+        .cart-drawer-header {
+            background: var(--azul-dark);
+            color: #fff;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--amarillo);
+        }
+
+        .cart-drawer-header h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-close-cart {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: 0.2s;
+        }
+
+        .btn-close-cart:hover {
+            background: var(--rojo-brand);
+        }
+
+        .cart-drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--gris-borde);
+        }
+
+        .item-info h4 { font-size: 0.85rem; font-weight: 700; }
+        .item-info span { font-size: 0.8rem; color: var(--rojo-brand); font-weight: 700; }
+
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--gris-bg);
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .btn-qty {
+            background: #fff;
+            border: 1px solid var(--gris-borde);
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .qty-label { font-size: 0.85rem; font-weight: 800; min-width: 14px; text-align: center; }
+
+        .checkout-box {
+            background: var(--celeste-bg);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 14px;
+            border: 1px solid #cbe0f8;
+        }
+
+        .checkout-box h4 {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: var(--azul-dark);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--texto-mutado);
+            margin-bottom: 4px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1.5px solid #b6d4fe;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background: #fff;
+            outline: none;
+        }
+
+        .cart-drawer-footer {
+            padding: 18px 20px;
+            background: #fff;
+            border-top: 1px solid var(--gris-borde);
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--texto-mutado);
+            margin-bottom: 5px;
+        }
+
+        .calc-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--azul-dark);
+            border-top: 2px solid var(--gris-bg);
+            padding-top: 8px;
+            margin-top: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .calc-total span:last-child {
+            color: var(--rojo-brand);
+        }
+
+        .btn-send-whatsapp {
+            width: 100%;
+            background: #25d366;
+            color: #fff;
+            border: none;
+            padding: 13px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+            transition: all 0.2s;
+        }
+
+        .btn-send-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-2px);
+        }
+
+        /* 8. Botón Flotante Mobile */
+        .cart-float-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--rojo-brand);
+            color: #fff;
+            border: none;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            box-shadow: 0 8px 20px rgba(193, 39, 45, 0.4);
+            cursor: pointer;
+            z-index: 90;
+            transition: transform 0.2s;
+        }
+
+        .cart-float-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .badge-float {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--amarillo);
+            color: var(--azul-dark);
+            font-size: 0.75rem;
+            font-weight: 900;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+        }
+
+        @media (max-width: 768px) {
+            .search-box { display: none; }
+            .info-cards-section { grid-template-columns: 1fr; }
+            .carousel-container { height: 180px; }
+            .slide { padding: 0 20px; }
+            .slide-content h2 { font-size: 1.3rem; }
+            .slide-illustration { display: none; }
+            .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .img-wrapper { height: 125px; }
+            .product-title { font-size: 0.82rem; min-height: 32px; }
+            .current-price { font-size: 1.05rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Tira de Marquesina Animada -->
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <span><i class="fa-solid fa-fire"></i> ¡PROMOS IMPERDIBLES EN SUNCHALES!</span>
+            <span><i class="fa-solid fa-motorcycle"></i> DELIVERY RÁPIDO A TU CASA</span>
+            <span><i class="fa-solid fa-clock"></i> ABIERTO TODOS LOS DÍAS</span>
+            <span><i class="fa-solid fa-star"></i> BEBIDAS HELADAS, GOLOSINAS Y SNACKS</span>
+            <span><i class="fa-solid fa-fire"></i> ¡PROMOS IMPERDIBLES EN SUNCHALES!</span>
+            <span><i class="fa-solid fa-motorcycle"></i> DELIVERY RÁPIDO A TU CASA</span>
+            <span><i class="fa-solid fa-clock"></i> ABIERTO TODOS LOS DÍAS</span>
+            <span><i class="fa-solid fa-star"></i> BEBIDAS HELADAS, GOLOSINAS Y SNACKS</span>
+        </div>
+    </div>
+
+    <!-- 2. Header / Barra de Navegación -->
+    <header>
+        <div class="nav-wrapper">
+            <div class="logo-box" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="logo-badge">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                </div>
+                <div class="logo-text">
+                    <h1 class="heading-font">CENTRO <span>MINI SHOP</span></h1>
+                    <small>Sunchales • Santa Fe</small>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Buscá alfajores, bebidas, combos previa..." onkeyup="searchFilter()">
+            </div>
+
+            <button class="btn-cart-nav heading-font" onclick="toggleCartDrawer()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Mi Pedido</span>
+                <span class="cart-badge-nav" id="headerCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 3. Carteles que van pasando (Slider Automático) -->
+    <section class="slider-section">
+        <div class="carousel-container">
+            <!-- Slide 1 -->
+            <div class="slide slide-bg-1 active">
+                <div class="slide-content">
+                    <div class="slide-tag"><i class="fa-solid fa-fire"></i> Especial Previa</div>
+                    <h2 class="heading-font">FERNET + COCA COLA<br><span>¡EN PROMO HOY!</span></h2>
+                    <p>Armá la juntada al toque. Envío express en Sunchales.</p>
+                </div>
+                <i class="fa-solid fa-champagne-glasses slide-illustration"></i>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide slide-bg-2">
+                <div class="slide-content">
+                    <div class="slide-tag"><i class="fa-solid fa-bolt"></i> Antojo Dulce</div>
+                    <h2 class="heading-font">CHOCOLATES & ALFAJORES<br><span>LOS MEJORES PRECIOS</span></h2>
+                    <p>Milka, Block, Havanna y todas tus golosinas favoritas.</p>
+                </div>
+                <i class="fa-solid fa-cookie-bite slide-illustration"></i>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide slide-bg-3">
+                <div class="slide-content">
+                    <div class="slide-tag"><i class="fa-solid fa-snowflake"></i> 100% Heladas</div>
+                    <h2 class="heading-font">CERVEZAS & ENERGIZANTES<br><span>LISTAS PARA DISFRUTAR</span></h2>
+                    <p>Llegan frías a tu puerta en minutos.</p>
+                </div>
+                <i class="fa-solid fa-beer-mug-empty slide-illustration"></i>
+            </div>
+
+            <!-- Flechas y Puntos -->
+            <button class="slider-arrow prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="slider-arrow next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <div class="slider-dots">
+                <div class="dot active" onclick="setSlide(0)"></div>
+                <div class="dot" onclick="setSlide(1)"></div>
+                <div class="dot" onclick="setSlide(2)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Carteles de Beneficios / Servicios -->
+    <div class="info-cards-section">
+        <div class="info-card">
+            <i class="fa-solid fa-motorcycle"></i>
+            <div>
+                <h4>Delivery a Domicilio</h4>
+                <p>Envíos a todos los barrios de Sunchales.</p>
+            </div>
+        </div>
+        <div class="info-card" style="border-left-color: var(--rojo-brand);">
+            <i class="fa-solid fa-wallet" style="color: var(--rojo-brand);"></i>
+            <div>
+                <h4>Efectivo o Transferencia</h4>
+                <p>Pagá al recibir o por Mercado Pago.</p>
+            </div>
+        </div>
+        <div class="info-card" style="border-left-color: var(--amarillo);">
+            <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+            <div>
+                <h4>Atención WhatsApp</h4>
+                <p>Confirmación inmediata de tu pedido.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Filtros de Categorías -->
+    <div class="categories-container">
+        <div class="categories-scroll">
+            <button class="cat-pill active" onclick="filterByCat('todos', this)"><i class="fa-solid fa-star"></i> Todos</button>
+            <button class="cat-pill" onclick="filterByCat('combos', this)"><i class="fa-solid fa-fire"></i> Combos Previa</button>
+            <button class="cat-pill" onclick="filterByCat('bebidas', this)"><i class="fa-solid fa-wine-bottle"></i> Bebidas & Cervezas</button>
+            <button class="cat-pill" onclick="filterByCat('dulces', this)"><i class="fa-solid fa-cookie"></i> Chocolates & Dulces</button>
+            <button class="cat-pill" onclick="filterByCat('snacks', this)"><i class="fa-solid fa-bowl-food"></i> Snacks Salados</button>
+            <button class="cat-pill" onclick="filterByCat('almacen', this)"><i class="fa-solid fa-shop"></i> Mini Almacén</button>
+        </div>
+    </div>
+
+    <!-- 6. Catálogo de Productos con Imágenes Reales -->
+    <main class="catalog-container">
+        <div class="catalog-grid" id="catalogGrid"></div>
+    </main>
+
+    <!-- 7. Botón Flotante Carrito Mobile -->
+    <button class="cart-float-btn" onclick="toggleCartDrawer()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div class="badge-float" id="floatCount">0</div>
+    </button>
+
+    <!-- 8. Drawer Carrito Lateral Desplegable -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h3 class="heading-font"><i class="fa-solid fa-bag-shopping"></i> Tu Pedido Online</h3>
+            <button class="btn-close-cart" onclick="toggleCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <div class="cart-drawer-body">
+            <div id="cartItemsList"></div>
+
+            <div class="checkout-box">
+                <h4 class="heading-font"><i class="fa-solid fa-location-dot"></i> Datos de Entrega</h4>
+
+                <div class="form-group">
+                    <label>Tu Dirección en Sunchales:</label>
+                    <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450 o Barrio">
+                </div>
+
+                <div class="form-group">
+                    <label>Zona de Envío:</label>
+                    <select id="custZone" onchange="calcTotals()">
+                        <option value="600">Zona Centro / Cercanías ($600)</option>
+                        <option value="900">Barrio Cooperativo / Moreno / Colón ($900)</option>
+                        <option value="1400">Loteos Periféricos / Zona Rural ($1.400)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Forma de Pago:</label>
+                    <select id="custPayment">
+                        <option value="Efectivo al recibir">Efectivo contra entrega</option>
+                        <option value="Transferencia / Mercado Pago">Transferencia / Mercado Pago</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-drawer-footer">
+            <div class="calc-row">
+                <span>Subtotal productos:</span>
+                <span id="subtotalText">$0</span>
+            </div>
+            <div class="calc-row">
+                <span>Costo de envío:</span>
+                <span id="shippingText">$600</span>
+            </div>
+            <div class="calc-total">
+                <span>TOTAL:</span>
+                <span id="totalText">$600</span>
+            </div>
+            <button class="btn-send-whatsapp heading-font" onclick="sendToWhatsApp()">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Pedir por WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Script de Lógica, Carrusel y Carrito -->
+    <script>
+        const WHATSAPP_NUM = "5493493443991";
+
+        // Catálogo con imágenes fotográficas de productos reales
+        const products = [
+            {
+                id: 1,
+                name: "Fernet Branca 750ml + 2 Coca-Cola 1.5L",
+                cat: "combos",
+                price: 29500,
+                oldPrice: 32000,
+                badge: "PROMO PREVIA",
+                img: "https://images.unsplash.com/photo-1527061011665-3652c757a4d4?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 2,
+                name: "Six Pack Cerveza Heineken Lata 473ml",
+                cat: "bebidas",
+                price: 12500,
+                oldPrice: 14000,
+                badge: "HELADAS",
+                img: "https://images.unsplash.com/photo-1608270199042-3a3628e9389f?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 3,
+                name: "Chocolate Milka Avellanas 100g",
+                cat: "dulces",
+                price: 3200,
+                oldPrice: null,
+                badge: "TENTACIÓN",
+                img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 4,
+                name: "Papas Fritas Lays Clásicas 140g",
+                cat: "snacks",
+                price: 3500,
+                oldPrice: null,
+                badge: null,
+                img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 5,
+                name: "Alfajor Havanna Chocolate x1",
+                cat: "dulces",
+                price: 2600,
+                oldPrice: null,
+                badge: "PREMIUM",
+                img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 6,
+                name: "Gaseosa Coca-Cola Original 2.25L",
+                cat: "bebidas",
+                price: 4300,
+                oldPrice: null,
+                badge: null,
+                img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 7,
+                name: "Doritos Mega Queso 140g",
+                cat: "snacks",
+                price: 3900,
+                oldPrice: 4400,
+                badge: "CRUJIENTE",
+                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60"
+            },
+            {
+                id: 8,
+                name: "Yerba Mate Playadito 1kg",
+                cat: "almacen",
+                price: 5800,
+                oldPrice: null,
+                badge: null,
+                img: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=60"
+            }
+        ];
+
+        let cart = [];
+
+        /* Slider Automático */
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function moveSlide(step) {
+            showSlide(currentSlide + step);
+        }
+
+        function setSlide(index) {
+            showSlide(index);
+        }
+
+        setInterval(() => {
+            moveSlide(1);
+        }, 4500);
+
+        /* Renderizar Productos */
+        function renderProducts(items) {
+            const grid = document.getElementById('catalogGrid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">No hay productos disponibles.</div>`;
+                return;
+            }
+
+            items.forEach(p => {
+                const badgeTag = p.badge ? `<div class="product-badge">${p.badge}</div>` : '';
+                const oldPriceTag = p.oldPrice ? `<span class="old-price">$${p.oldPrice.toLocaleString('es-AR')}</span>` : '';
+
+                grid.innerHTML += `
+                    <div class="product-card">
+                        ${badgeTag}
+                        <div class="img-wrapper">
+                            <img src="${p.img}" alt="${p.name}" loading="lazy">
+                        </div>
+                        <div class="product-details">
+                            <span class="product-cat-name">${p.cat}</span>
+                            <h3 class="product-title">${p.name}</h3>
+                            <div class="price-container">
+                                <span class="current-price">$${p.price.toLocaleString('es-AR')}</span>
+                                ${oldPriceTag}
+                            </div>
+                            <button class="btn-add heading-font" onclick="addToCart(${p.id})">
+                                <i class="fa-solid fa-plus"></i> AGREGAR
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterByCat(cat, btn) {
+            document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+
+            if (cat === 'todos') {
+                renderProducts(products);
+            } else {
+                renderProducts(products.filter(p => p.cat === cat));
+            }
+        }
+
+        function searchFilter() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.cat.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        }
+
+        /* Lógica del Carrito */
+        function toggleCartDrawer() {
+            document.getElementById('cartDrawer').classList.toggle('show');
+            document.getElementById('cartOverlay').classList.toggle('show');
+        }
+
+        function addToCart(id) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += 1;
+            } else {
+                const prod = products.find(p => p.id === id);
+                cart.push({ ...prod, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(i => i.id !== id);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItemsList');
+            const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
+
+            document.getElementById('headerCount').innerText = totalItems;
+            document.getElementById('floatCount').innerText = totalItems;
+
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align:center; padding: 40px 10px; color:#94a3b8;">
+                        <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 8px; opacity:0.4;"></i>
+                        <p style="font-size:0.9rem;">El carrito está vacío.</p>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = cart.map(i => `
+                    <div class="cart-item-row">
+                        <div class="item-info">
+                            <h4>${i.name}</h4>
+                            <span>$${(i.price * i.qty).toLocaleString('es-AR')}</span>
+                        </div>
+                        <div class="item-controls">
+                            <button class="btn-qty" onclick="changeQty(${i.id}, -1)">-</button>
+                            <span class="qty-label">${i.qty}</span>
+                            <button class="btn-qty" onclick="changeQty(${i.id}, 1)">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            calcTotals();
+        }
+
+        function calcTotals() {
+            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            const shipping = cart.length > 0 ? parseInt(document.getElementById('custZone').value) : 0;
+            const total = subtotal + shipping;
+
+            document.getElementById('subtotalText').innerText = `$${subtotal.toLocaleString('es-AR')}`;
+            document.getElementById('shippingText').innerText = `$${shipping.toLocaleString('es-AR')}`;
+            document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
+        }
+
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                alert("Tu carrito está vacío. Sumá artículos para realizar el pedido.");
+                return;
+            }
+
+            const address = document.getElementById('custAddress').value.trim();
+            if (!address) {
+                alert("Por favor completá tu dirección en Sunchales.");
+                document.getElementById('custAddress').focus();
+                return;
+            }
+
+            const zoneElem = document.getElementById('custZone');
+            const zoneText = zoneElem.options[zoneElem.selectedIndex].text;
+            const shippingCost = parseInt(zoneElem.value);
+            const payment = document.getElementById('custPayment').value;
+            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            const total = subtotal + shippingCost;
+
+            let msg = `🛒 *PEDIDO ONLINE - CENTRO MINI SHOP*\n`;
+            msg += `═════════════════════════\n`;
+            msg += `📍 *Dirección:* ${address}\n`;
+            msg += `🛵 *Zona:* ${zoneText}\n`;
+            msg += `💳 *Método de Pago:* ${payment}\n`;
+            msg += `═════════════════════════\n`;
+            msg += `📋 *PRODUCTOS SELECCIONADOS:*\n`;
+
+            cart.forEach(item => {
+                msg += `▪️ ${item.qty}x ${item.name} ($${(item.price * item.qty).toLocaleString('es-AR')})\n`;
+            });
+
+            msg += `═════════════════════════\n`;
+            msg += `*Subtotal:* $${subtotal.toLocaleString('es-AR')}\n`;
+            msg += `*Envío:* $${shippingCost.toLocaleString('es-AR')}\n`;
+            msg += `*TOTAL A PAGAR: $${total.toLocaleString('es-AR')}*`;
+
+            const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
+        // Inicio
+        renderProducts(products);
+    </script>
+</body>
+</html>
