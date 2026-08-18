@@ -107,11 +107,11 @@
             flex-shrink: 0;
         }
 
-        /* Logo transparente, sin cuadrado blanco y con renderizado nítido */
+        /* Corrección de contraste y definición para el logo */
         .logo-img-wrapper {
             background: transparent;
-            width: 58px;
-            height: 58px;
+            width: 65px;
+            height: 65px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -124,7 +124,7 @@
             object-fit: contain;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
-            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 0 2px #ffffff) drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
         }
 
         .logo-text h1 {
@@ -209,7 +209,7 @@
             font-weight: 800;
         }
 
-        /* 3. Slider de Banners / Carteles que Pasan */
+        /* 3. Slider de Banners */
         .slider-section {
             max-width: 1250px;
             margin: 20px auto 10px;
@@ -291,7 +291,6 @@
             transform: rotate(-10deg);
         }
 
-        /* Controles y Puntos del Slider */
         .slider-arrow {
             position: absolute;
             top: 50%;
@@ -345,7 +344,7 @@
             border-radius: 8px;
         }
 
-        /* 4. Cartel Info / Envíos Sunchales */
+        /* 4. Carteles de Información / Envíos */
         .info-cards-section {
             max-width: 1250px;
             margin: 15px auto 0;
@@ -432,7 +431,7 @@
             color: var(--amarillo);
         }
 
-        /* 6. Grilla de Productos con Fotos Reales */
+        /* 6. Grilla de Productos */
         .catalog-container {
             max-width: 1250px;
             margin: 15px auto;
@@ -824,8 +823,8 @@
             }
 
             .logo-img-wrapper {
-                width: 50px;
-                height: 50px;
+                width: 52px;
+                height: 52px;
             }
 
             .logo-text {
