@@ -41,7 +41,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* 1. Tira de Marquesina Animada (Ticker) */
+        /* 1. Tira de Marquesina Animada */
         .marquee-container {
             background: var(--rojo-brand);
             color: #fff;
@@ -245,17 +245,9 @@
             transform: scale(1);
         }
 
-        .slide-bg-1 {
-            background: linear-gradient(110deg, #092857 0%, #1453b8 60%, #1e6bf2 100%);
-        }
-
-        .slide-bg-2 {
-            background: linear-gradient(110deg, #991419 0%, #c1272d 55%, #e63946 100%);
-        }
-
-        .slide-bg-3 {
-            background: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #334155 100%);
-        }
+        .slide-bg-1 { background: linear-gradient(110deg, #092857 0%, #1453b8 60%, #1e6bf2 100%); }
+        .slide-bg-2 { background: linear-gradient(110deg, #991419 0%, #c1272d 55%, #e63946 100%); }
+        .slide-bg-3 { background: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #334155 100%); }
 
         .slide-content h2 {
             font-size: 2.2rem;
@@ -1109,7 +1101,7 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Rutas locales: guardá tus imágenes dentro de la carpeta /img/
+        // Rutas directas según la estructura de carpetas de tu GitHub
         const products = [
             {
                 id: 1,
@@ -1117,7 +1109,7 @@
                 cat: "combos",
                 price: 29500,
                 oldPrice: 32000,
-                img: "img/combo-fernet.png"
+                img: "Nueva carpeta (5)/img/combo-fernet.png"
             },
             {
                 id: 2,
@@ -1125,7 +1117,7 @@
                 cat: "bebidas",
                 price: 12500,
                 oldPrice: 14000,
-                img: "img/heineken.png"
+                img: "Nueva carpeta (5)/img/heineken.png"
             },
             {
                 id: 3,
@@ -1133,7 +1125,7 @@
                 cat: "dulces",
                 price: 3200,
                 oldPrice: null,
-                img: "img/milka.png"
+                img: "Nueva carpeta (5)/img/milka.png"
             },
             {
                 id: 4,
@@ -1141,7 +1133,7 @@
                 cat: "snacks",
                 price: 3500,
                 oldPrice: null,
-                img: "img/lays.png"
+                img: "Nueva carpeta (5)/img/lays.png"
             },
             {
                 id: 5,
@@ -1149,7 +1141,7 @@
                 cat: "dulces",
                 price: 2600,
                 oldPrice: null,
-                img: "img/havanna.png"
+                img: "Nueva carpeta (5)/img/havanna.png"
             },
             {
                 id: 6,
@@ -1157,7 +1149,7 @@
                 cat: "bebidas",
                 price: 4300,
                 oldPrice: null,
-                img: "img/coca.png"
+                img: "Nueva carpeta (5)/img/coca.png"
             },
             {
                 id: 7,
@@ -1165,7 +1157,7 @@
                 cat: "snacks",
                 price: 3900,
                 oldPrice: 4400,
-                img: "img/doritos.png"
+                img: "Nueva carpeta (5)/img/doritos.png"
             }
         ];
 
@@ -1213,7 +1205,7 @@
                 grid.innerHTML += `
                     <div class="product-card">
                         <div class="img-wrapper">
-                            <img src="${p.img}" alt="${p.name}" loading="lazy">
+                            <img src="${encodeURI(p.img)}" alt="${p.name}" loading="lazy">
                         </div>
                         <div class="product-details">
                             <span class="product-cat-name">${p.cat}</span>
