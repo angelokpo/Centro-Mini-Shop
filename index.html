@@ -91,7 +91,7 @@
         .nav-wrapper {
             max-width: 1250px;
             margin: 0 auto;
-            padding: 12px 20px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -107,25 +107,24 @@
             flex-shrink: 0;
         }
 
+        /* Logo transparente, sin cuadrado blanco y con renderizado nítido */
         .logo-img-wrapper {
-            background: #fff;
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            background: transparent;
+            width: 58px;
+            height: 58px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--amarillo);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             flex-shrink: 0;
-            overflow: hidden;
-            padding: 2px;
         }
 
         .logo-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
         }
 
         .logo-text h1 {
@@ -813,10 +812,10 @@
             border: 2px solid #fff;
         }
 
-        /* 9. Media Queries: AJUSTES EXCLUSIVOS PARA CELULAR */
+        /* 9. Media Queries: Celular */
         @media (max-width: 768px) {
             .nav-wrapper {
-                padding: 10px 12px;
+                padding: 8px 12px;
                 gap: 10px;
             }
 
@@ -825,10 +824,8 @@
             }
 
             .logo-img-wrapper {
-                width: 44px;
-                height: 44px;
-                border-radius: 12px;
-                border-width: 2px;
+                width: 50px;
+                height: 50px;
             }
 
             .logo-text {
@@ -947,7 +944,6 @@
         <div class="nav-wrapper">
             <div class="logo-box" onclick="window.scrollTo({top:0, behavior:'smooth'})">
                 <div class="logo-img-wrapper">
-                    <!-- Podés cambiar "logo.png" por la ruta de tu archivo de imagen local -->
                     <img src="logo.png" alt="Centro Mini Shop Logo" onerror="this.onerror=null; this.src='https://i.ibb.co/vz444C9/centro-mini-shop.png';">
                 </div>
                 <div class="logo-text">
