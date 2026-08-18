@@ -104,6 +104,7 @@
             gap: 12px;
             text-decoration: none;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .logo-badge {
@@ -118,6 +119,7 @@
             font-size: 1.6rem;
             border: 2px solid var(--amarillo);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            flex-shrink: 0;
         }
 
         .logo-text h1 {
@@ -185,6 +187,7 @@
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 4px 12px rgba(255, 199, 0, 0.35);
+            flex-shrink: 0;
         }
 
         .btn-cart-nav:hover {
@@ -804,8 +807,66 @@
             border: 2px solid #fff;
         }
 
+        /* 9. Media Queries: Optimización Mobile manteniendo 100% desktop */
         @media (max-width: 768px) {
-            .search-box { display: none; }
+            .nav-wrapper {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
+            .logo-box {
+                gap: 6px;
+            }
+
+            .logo-badge {
+                width: 34px;
+                height: 34px;
+                font-size: 1.1rem;
+                border-radius: 8px;
+                border-width: 1.5px;
+            }
+
+            .logo-text h1 {
+                font-size: 0.85rem;
+            }
+
+            .logo-text small {
+                display: none;
+            }
+
+            .search-box {
+                display: block;
+                max-width: none;
+            }
+
+            .search-box input {
+                padding: 7px 10px 7px 30px;
+                font-size: 0.75rem;
+                border-radius: 20px;
+            }
+
+            .search-box i {
+                left: 10px;
+                font-size: 0.75rem;
+            }
+
+            .btn-cart-nav {
+                padding: 7px 10px;
+                gap: 5px;
+                border-radius: 20px;
+                font-size: 0.85rem;
+            }
+
+            .btn-cart-nav .cart-text {
+                display: none;
+            }
+
+            .cart-badge-nav {
+                font-size: 0.7rem;
+                padding: 1px 5px;
+                border-radius: 8px;
+            }
+
             .info-cards-section { grid-template-columns: 1fr; }
             .carousel-container { height: 180px; }
             .slide { padding: 0 20px; }
@@ -854,7 +915,7 @@
 
             <button class="btn-cart-nav heading-font" onclick="toggleCartDrawer()">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span>Mi Pedido</span>
+                <span class="cart-text">Mi Pedido</span>
                 <span class="cart-badge-nav" id="headerCount">0</span>
             </button>
         </div>
@@ -1013,7 +1074,6 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Catálogo con imágenes fotográficas de productos reales
         const products = [
             {
                 id: 1,
@@ -1276,7 +1336,6 @@
             window.open(url, '_blank');
         }
 
-        // Inicio
         renderProducts(products);
     </script>
 </body>
