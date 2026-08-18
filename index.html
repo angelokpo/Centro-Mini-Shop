@@ -240,11 +240,7 @@
             color: #fff;
         }
 
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
+        .slide.active { opacity: 1; transform: scale(1); }
         .slide-bg-1 { background: linear-gradient(110deg, #092857 0%, #1453b8 60%, #1e6bf2 100%); }
         .slide-bg-2 { background: linear-gradient(110deg, #991419 0%, #c1272d 55%, #e63946 100%); }
         .slide-bg-3 { background: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #334155 100%); }
@@ -257,9 +253,7 @@
             text-transform: uppercase;
         }
 
-        .slide-content h2 span {
-            color: var(--amarillo);
-        }
+        .slide-content h2 span { color: var(--amarillo); }
 
         .slide-content p {
             font-size: 1.05rem;
@@ -339,7 +333,7 @@
             border-radius: 8px;
         }
 
-        /* 4. Carteles de Información / Envíos */
+        /* 4. Carteles de Beneficios */
         .info-cards-section {
             max-width: 1250px;
             margin: 15px auto 0;
@@ -674,9 +668,7 @@
             letter-spacing: 0.5px;
         }
 
-        .form-group {
-            margin-bottom: 10px;
-        }
+        .form-group { margin-bottom: 10px; }
 
         .form-group label {
             display: block;
@@ -722,9 +714,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        .calc-total span:last-child {
-            color: var(--rojo-brand);
-        }
+        .calc-total span:last-child { color: var(--rojo-brand); }
 
         .btn-send-whatsapp {
             width: 100%;
@@ -771,9 +761,7 @@
             transition: transform 0.2s;
         }
 
-        .cart-float-btn:hover {
-            transform: scale(1.08);
-        }
+        .cart-float-btn:hover { transform: scale(1.08); }
 
         .badge-float {
             position: absolute;
@@ -799,21 +787,10 @@
                 gap: 10px;
             }
 
-            .logo-box {
-                gap: 0;
-            }
-
-            .logo-img-wrapper {
-                height: 42px;
-            }
-
-            .logo-img-wrapper img {
-                max-height: 42px;
-            }
-
-            .logo-text {
-                display: none;
-            }
+            .logo-box { gap: 0; }
+            .logo-img-wrapper { height: 42px; }
+            .logo-img-wrapper img { max-height: 42px; }
+            .logo-text { display: none; }
 
             .search-box {
                 display: block;
@@ -839,9 +816,7 @@
                 font-size: 1.05rem;
             }
 
-            .btn-cart-nav .cart-text {
-                display: none;
-            }
+            .btn-cart-nav .cart-text { display: none; }
 
             .cart-badge-nav {
                 font-size: 0.75rem;
@@ -849,13 +824,8 @@
                 border-radius: 10px;
             }
 
-            .carousel-container { 
-                height: 195px; 
-            }
-
-            .slide { 
-                padding: 0 45px; 
-            }
+            .carousel-container { height: 195px; }
+            .slide { padding: 0 45px; }
 
             .slide-content {
                 display: flex;
@@ -908,7 +878,7 @@
 </head>
 <body>
 
-    <!-- 1. Tira de Marquesina Animada -->
+    <!-- 1. Marquesina -->
     <div class="marquee-container">
         <div class="marquee-track">
             <span><i class="fa-solid fa-fire"></i> ¡PROMOS IMPERDIBLES EN SUNCHALES!</span>
@@ -922,7 +892,7 @@
         </div>
     </div>
 
-    <!-- 2. Header / Barra de Navegación -->
+    <!-- 2. Header -->
     <header>
         <div class="nav-wrapper">
             <div class="logo-box" onclick="window.scrollTo({top:0, behavior:'smooth'})">
@@ -948,10 +918,9 @@
         </div>
     </header>
 
-    <!-- 3. Carteles que van pasando (Slider Automático) -->
+    <!-- 3. Slider de Banners -->
     <section class="slider-section">
         <div class="carousel-container">
-            <!-- Slide 1 -->
             <div class="slide slide-bg-1 active">
                 <div class="slide-content">
                     <div class="slide-tag"><i class="fa-solid fa-fire"></i> Especial Previa</div>
@@ -961,7 +930,6 @@
                 <i class="fa-solid fa-champagne-glasses slide-illustration"></i>
             </div>
 
-            <!-- Slide 2 -->
             <div class="slide slide-bg-2">
                 <div class="slide-content">
                     <div class="slide-tag"><i class="fa-solid fa-bolt"></i> Antojo Dulce</div>
@@ -971,7 +939,6 @@
                 <i class="fa-solid fa-cookie-bite slide-illustration"></i>
             </div>
 
-            <!-- Slide 3 -->
             <div class="slide slide-bg-3">
                 <div class="slide-content">
                     <div class="slide-tag"><i class="fa-solid fa-snowflake"></i> 100% Heladas</div>
@@ -981,7 +948,6 @@
                 <i class="fa-solid fa-beer-mug-empty slide-illustration"></i>
             </div>
 
-            <!-- Flechas y Puntos -->
             <button class="slider-arrow prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
             <button class="slider-arrow next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
 
@@ -993,7 +959,7 @@
         </div>
     </section>
 
-    <!-- 4. Carteles de Beneficios / Servicios -->
+    <!-- 4. Beneficios -->
     <div class="info-cards-section">
         <div class="info-card">
             <i class="fa-solid fa-motorcycle"></i>
@@ -1034,13 +1000,13 @@
         <div class="catalog-grid" id="catalogGrid"></div>
     </main>
 
-    <!-- 7. Botón Flotante Carrito Mobile -->
+    <!-- 7. Botón Flotante Carrito -->
     <button class="cart-float-btn" onclick="toggleCartDrawer()">
         <i class="fa-solid fa-cart-shopping"></i>
         <div class="badge-float" id="floatCount">0</div>
     </button>
 
-    <!-- 8. Drawer Carrito Lateral Desplegable -->
+    <!-- 8. Drawer Carrito Lateral -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-drawer-header">
@@ -1101,7 +1067,7 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Rutas directas según la estructura de carpetas de tu GitHub
+        // Rutas directas coincidentes con tu repositorio
         const products = [
             {
                 id: 1,
@@ -1109,7 +1075,7 @@
                 cat: "combos",
                 price: 29500,
                 oldPrice: 32000,
-                img: "Nueva carpeta (5)/img/combo-fernet.png"
+                img: "combo-fernet.png"
             },
             {
                 id: 2,
@@ -1117,7 +1083,7 @@
                 cat: "bebidas",
                 price: 12500,
                 oldPrice: 14000,
-                img: "Nueva carpeta (5)/img/heineken.png"
+                img: "heineken.png"
             },
             {
                 id: 3,
@@ -1125,7 +1091,7 @@
                 cat: "dulces",
                 price: 3200,
                 oldPrice: null,
-                img: "Nueva carpeta (5)/img/milka.png"
+                img: "milka.png"
             },
             {
                 id: 4,
@@ -1133,7 +1099,7 @@
                 cat: "snacks",
                 price: 3500,
                 oldPrice: null,
-                img: "Nueva carpeta (5)/img/lays.png"
+                img: "lays.png"
             },
             {
                 id: 5,
@@ -1141,7 +1107,7 @@
                 cat: "dulces",
                 price: 2600,
                 oldPrice: null,
-                img: "Nueva carpeta (5)/img/havanna.png"
+                img: "havanna.png"
             },
             {
                 id: 6,
@@ -1149,7 +1115,7 @@
                 cat: "bebidas",
                 price: 4300,
                 oldPrice: null,
-                img: "Nueva carpeta (5)/img/coca.png"
+                img: "coca.png"
             },
             {
                 id: 7,
@@ -1157,7 +1123,7 @@
                 cat: "snacks",
                 price: 3900,
                 oldPrice: 4400,
-                img: "Nueva carpeta (5)/img/doritos.png"
+                img: "doritos.jpg"
             }
         ];
 
@@ -1205,7 +1171,7 @@
                 grid.innerHTML += `
                     <div class="product-card">
                         <div class="img-wrapper">
-                            <img src="${encodeURI(p.img)}" alt="${p.name}" loading="lazy">
+                            <img src="${p.img}" alt="${p.name}" loading="lazy">
                         </div>
                         <div class="product-details">
                             <span class="product-cat-name">${p.cat}</span>
