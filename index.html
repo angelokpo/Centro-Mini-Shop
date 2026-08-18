@@ -807,54 +807,54 @@
             border: 2px solid #fff;
         }
 
-        /* 9. Media Queries: Optimización Mobile manteniendo 100% desktop */
+        /* 9. Media Queries: AJUSTES EXCLUSIVOS PARA CELULAR */
         @media (max-width: 768px) {
             .nav-wrapper {
                 padding: 10px 12px;
-                gap: 8px;
+                gap: 10px;
             }
 
+            /* Logo más grande sin título */
             .logo-box {
-                gap: 6px;
+                gap: 0;
             }
 
             .logo-badge {
-                width: 34px;
-                height: 34px;
-                font-size: 1.1rem;
-                border-radius: 8px;
-                border-width: 1.5px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.45rem;
+                border-radius: 12px;
+                border-width: 2px;
             }
 
-            .logo-text h1 {
-                font-size: 0.85rem;
-            }
-
-            .logo-text small {
+            .logo-text {
                 display: none;
             }
 
+            /* Barra de búsqueda extendida al máximo */
             .search-box {
                 display: block;
+                flex: 1;
                 max-width: none;
             }
 
             .search-box input {
-                padding: 7px 10px 7px 30px;
-                font-size: 0.75rem;
-                border-radius: 20px;
+                padding: 10px 12px 10px 36px;
+                font-size: 0.82rem;
+                border-radius: 25px;
             }
 
             .search-box i {
-                left: 10px;
-                font-size: 0.75rem;
+                left: 12px;
+                font-size: 0.85rem;
             }
 
+            /* Carrito más grande y cómodo */
             .btn-cart-nav {
-                padding: 7px 10px;
-                gap: 5px;
-                border-radius: 20px;
-                font-size: 0.85rem;
+                padding: 9px 14px;
+                gap: 6px;
+                border-radius: 25px;
+                font-size: 1.05rem;
             }
 
             .btn-cart-nav .cart-text {
@@ -862,16 +862,64 @@
             }
 
             .cart-badge-nav {
-                font-size: 0.7rem;
-                padding: 1px 5px;
-                border-radius: 8px;
+                font-size: 0.75rem;
+                padding: 2px 6px;
+                border-radius: 10px;
             }
 
-            .info-cards-section { grid-template-columns: 1fr; }
-            .carousel-container { height: 180px; }
-            .slide { padding: 0 20px; }
-            .slide-content h2 { font-size: 1.3rem; }
+            /* Slider: margen interno para no chocar flechas y textos */
+            .carousel-container { 
+                height: 195px; 
+            }
+
+            .slide { 
+                padding: 0 45px; 
+            }
+
+            .slide-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 3px;
+            }
+
+            /* Cartelitos (antojo dulce, 100% heladas) más chicos y sutiles */
+            .slide-tag {
+                font-size: 0.65rem;
+                padding: 2px 8px;
+                margin-bottom: 2px;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(4px);
+                font-weight: 600;
+            }
+
+            .slide-content h2 { 
+                font-size: 1.15rem;
+                line-height: 1.15;
+                margin-bottom: 2px;
+            }
+
+            .slide-content p {
+                font-size: 0.72rem;
+                margin-bottom: 0;
+                line-height: 1.2;
+            }
+
+            /* Flechitas más pequeñas y en los extremos */
+            .slider-arrow {
+                width: 26px;
+                height: 26px;
+                font-size: 0.75rem;
+            }
+
+            .slider-arrow.prev { left: 8px; }
+            .slider-arrow.next { right: 8px; }
+
             .slide-illustration { display: none; }
+            .info-cards-section { grid-template-columns: 1fr; }
             .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .img-wrapper { height: 125px; }
             .product-title { font-size: 0.82rem; min-height: 32px; }
@@ -1336,6 +1384,7 @@
             window.open(url, '_blank');
         }
 
+        // Inicio
         renderProducts(products);
     </script>
 </body>
