@@ -79,7 +79,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* 2. Navbar Principal estilo Van Van */
+        /* 2. Navbar Principal */
         header {
             background: linear-gradient(135deg, var(--azul-brand), var(--azul-dark));
             position: sticky;
@@ -107,7 +107,6 @@
             flex-shrink: 0;
         }
 
-        /* Logo limpio y libre como en kioscovanvan.com (sin círculos ni fondos) */
         .logo-img-wrapper {
             background: transparent !important;
             border: none !important;
@@ -464,20 +463,6 @@
             transform: translateY(-5px);
             box-shadow: 0 16px 28px -8px rgba(20, 83, 184, 0.2);
             border-color: #cbd5e1;
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--rojo-brand);
-            color: #fff;
-            font-size: 0.72rem;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 6px;
-            z-index: 2;
-            box-shadow: 0 2px 6px rgba(193, 39, 45, 0.3);
         }
 
         .img-wrapper {
@@ -1052,7 +1037,7 @@
         </div>
     </div>
 
-    <!-- 6. Catálogo de Productos con Imágenes Reales -->
+    <!-- 6. Catálogo de Productos -->
     <main class="catalog-container">
         <div class="catalog-grid" id="catalogGrid"></div>
     </main>
@@ -1124,6 +1109,7 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
+        // Catálogo con imágenes oficiales de cada producto en fondo limpio
         const products = [
             {
                 id: 1,
@@ -1131,8 +1117,7 @@
                 cat: "combos",
                 price: 29500,
                 oldPrice: 32000,
-                badge: "PROMO PREVIA",
-                img: "https://images.unsplash.com/photo-1527061011665-3652c757a4d4?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.rappi.com.ar/products/975191837-1608670868128.png"
             },
             {
                 id: 2,
@@ -1140,8 +1125,7 @@
                 cat: "bebidas",
                 price: 12500,
                 oldPrice: 14000,
-                badge: "HELADAS",
-                img: "https://images.unsplash.com/photo-1608270199042-3a3628e9389f?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.rappi.com.ar/products/975003517-1608670868128.png"
             },
             {
                 id: 3,
@@ -1149,8 +1133,7 @@
                 cat: "dulces",
                 price: 3200,
                 oldPrice: null,
-                badge: "TENTACIÓN",
-                img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.rappi.com.ar/products/975003923-1608670868128.png"
             },
             {
                 id: 4,
@@ -1158,8 +1141,7 @@
                 cat: "snacks",
                 price: 3500,
                 oldPrice: null,
-                badge: null,
-                img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.rappi.com.ar/products/975003948-1608670868128.png"
             },
             {
                 id: 5,
@@ -1167,8 +1149,7 @@
                 cat: "dulces",
                 price: 2600,
                 oldPrice: null,
-                badge: "PREMIUM",
-                img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.rappi.com.ar/products/975003889-1608670868128.png"
             },
             {
                 id: 6,
@@ -1176,8 +1157,7 @@
                 cat: "bebidas",
                 price: 4300,
                 oldPrice: null,
-                badge: null,
-                img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.rappi.com.ar/products/975003498-1608670868128.png"
             },
             {
                 id: 7,
@@ -1185,8 +1165,7 @@
                 cat: "snacks",
                 price: 3900,
                 oldPrice: 4400,
-                badge: "CRUJIENTE",
-                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.rappi.com.ar/products/975003950-1608670868128.png"
             }
         ];
 
@@ -1229,14 +1208,12 @@
             }
 
             items.forEach(p => {
-                const badgeTag = p.badge ? `<div class="product-badge">${p.badge}</div>` : '';
                 const oldPriceTag = p.oldPrice ? `<span class="old-price">$${p.oldPrice.toLocaleString('es-AR')}</span>` : '';
 
                 grid.innerHTML += `
                     <div class="product-card">
-                        ${badgeTag}
                         <div class="img-wrapper">
-                            <img src="${p.img}" alt="${p.name}" loading="lazy">
+                            <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400/f4f7fa/1453b8?text=${encodeURIComponent(p.name)}'">
                         </div>
                         <div class="product-details">
                             <span class="product-cat-name">${p.cat}</span>
