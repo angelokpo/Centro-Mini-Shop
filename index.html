@@ -1109,7 +1109,7 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Catálogo con imágenes oficiales de cada producto en fondo limpio
+        // Rutas locales: guardá tus imágenes dentro de la carpeta /img/
         const products = [
             {
                 id: 1,
@@ -1117,7 +1117,7 @@
                 cat: "combos",
                 price: 29500,
                 oldPrice: 32000,
-                img: "https://images.rappi.com.ar/products/975191837-1608670868128.png"
+                img: "img/combo-fernet.png"
             },
             {
                 id: 2,
@@ -1125,7 +1125,7 @@
                 cat: "bebidas",
                 price: 12500,
                 oldPrice: 14000,
-                img: "https://images.rappi.com.ar/products/975003517-1608670868128.png"
+                img: "img/heineken.png"
             },
             {
                 id: 3,
@@ -1133,7 +1133,7 @@
                 cat: "dulces",
                 price: 3200,
                 oldPrice: null,
-                img: "https://images.rappi.com.ar/products/975003923-1608670868128.png"
+                img: "img/milka.png"
             },
             {
                 id: 4,
@@ -1141,7 +1141,7 @@
                 cat: "snacks",
                 price: 3500,
                 oldPrice: null,
-                img: "https://images.rappi.com.ar/products/975003948-1608670868128.png"
+                img: "img/lays.png"
             },
             {
                 id: 5,
@@ -1149,7 +1149,7 @@
                 cat: "dulces",
                 price: 2600,
                 oldPrice: null,
-                img: "https://images.rappi.com.ar/products/975003889-1608670868128.png"
+                img: "img/havanna.png"
             },
             {
                 id: 6,
@@ -1157,7 +1157,7 @@
                 cat: "bebidas",
                 price: 4300,
                 oldPrice: null,
-                img: "https://images.rappi.com.ar/products/975003498-1608670868128.png"
+                img: "img/coca.png"
             },
             {
                 id: 7,
@@ -1165,7 +1165,7 @@
                 cat: "snacks",
                 price: 3900,
                 oldPrice: 4400,
-                img: "https://images.rappi.com.ar/products/975003950-1608670868128.png"
+                img: "img/doritos.png"
             }
         ];
 
@@ -1213,7 +1213,7 @@
                 grid.innerHTML += `
                     <div class="product-card">
                         <div class="img-wrapper">
-                            <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/400x400/f4f7fa/1453b8?text=${encodeURIComponent(p.name)}'">
+                            <img src="${p.img}" alt="${p.name}" loading="lazy">
                         </div>
                         <div class="product-details">
                             <span class="product-cat-name">${p.cat}</span>
