@@ -79,7 +79,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* 2. Navbar Principal */
+        /* 2. Navbar Principal estilo Van Van */
         header {
             background: linear-gradient(135deg, var(--azul-brand), var(--azul-dark));
             position: sticky;
@@ -107,28 +107,28 @@
             flex-shrink: 0;
         }
 
-        /* Contenedor circular con fondo blanco para que no se pierdan los bordes */
+        /* Logo limpio y libre como en kioscovanvan.com (sin círculos ni fondos) */
         .logo-img-wrapper {
-            background: #ffffff;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            padding: 0 !important;
+            width: auto;
+            height: 54px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            padding: 4px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
-            border: 2px solid var(--amarillo);
         }
 
         .logo-img-wrapper img {
-            width: 100%;
+            width: auto;
             height: 100%;
+            max-height: 54px;
             object-fit: contain;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            filter: none;
+            border-radius: 0 !important;
+            filter: none !important;
         }
 
         .logo-text h1 {
@@ -827,9 +827,11 @@
             }
 
             .logo-img-wrapper {
-                width: 48px;
-                height: 48px;
-                padding: 3px;
+                height: 42px;
+            }
+
+            .logo-img-wrapper img {
+                max-height: 42px;
             }
 
             .logo-text {
