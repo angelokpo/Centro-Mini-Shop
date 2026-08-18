@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Mini Shop | Sunchales - Tienda Online</title>
+    <title>Centro Mini Shop | Sunchales - Tienda Online 24hs</title>
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* 1. Tira de Marquesina Ticker */
+        /* 1. Tira de Marquesina Animada (Ticker) */
         .marquee-container {
             background: var(--rojo-brand);
             color: #fff;
@@ -79,7 +79,7 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* 2. Header: Logo Izquierda | Buscador Centro | Carrito Derecha */
+        /* 2. Navbar Principal */
         header {
             background: linear-gradient(135deg, var(--azul-brand), var(--azul-dark));
             position: sticky;
@@ -104,7 +104,6 @@
             gap: 12px;
             text-decoration: none;
             cursor: pointer;
-            flex-shrink: 0;
         }
 
         .logo-badge {
@@ -119,7 +118,6 @@
             font-size: 1.6rem;
             border: 2px solid var(--amarillo);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            flex-shrink: 0;
         }
 
         .logo-text h1 {
@@ -185,7 +183,6 @@
             font-weight: 800;
             font-size: 0.95rem;
             cursor: pointer;
-            flex-shrink: 0;
             transition: all 0.2s;
             box-shadow: 0 4px 12px rgba(255, 199, 0, 0.35);
         }
@@ -204,7 +201,7 @@
             font-weight: 800;
         }
 
-        /* 3. Slider de Banners / Carteles Grandes */
+        /* 3. Slider de Banners / Carteles que Pasan */
         .slider-section {
             max-width: 1250px;
             margin: 20px auto 10px;
@@ -237,9 +234,17 @@
             transform: scale(1);
         }
 
-        .slide-bg-1 { background: linear-gradient(110deg, #092857 0%, #1453b8 60%, #1e6bf2 100%); }
-        .slide-bg-2 { background: linear-gradient(110deg, #991419 0%, #c1272d 55%, #e63946 100%); }
-        .slide-bg-3 { background: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #334155 100%); }
+        .slide-bg-1 {
+            background: linear-gradient(110deg, #092857 0%, #1453b8 60%, #1e6bf2 100%);
+        }
+
+        .slide-bg-2 {
+            background: linear-gradient(110deg, #991419 0%, #c1272d 55%, #e63946 100%);
+        }
+
+        .slide-bg-3 {
+            background: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #334155 100%);
+        }
 
         .slide-content h2 {
             font-size: 2.2rem;
@@ -278,6 +283,7 @@
             transform: rotate(-10deg);
         }
 
+        /* Controles y Puntos del Slider */
         .slider-arrow {
             position: absolute;
             top: 50%;
@@ -286,14 +292,14 @@
             backdrop-filter: blur(5px);
             border: none;
             color: #fff;
-            width: 42px;
-            height: 42px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 0.85rem;
             transition: all 0.2s;
             z-index: 10;
         }
@@ -331,7 +337,7 @@
             border-radius: 8px;
         }
 
-        /* 4. Carteles de Beneficios / Servicios */
+        /* 4. Cartel Info / Envíos Sunchales */
         .info-cards-section {
             max-width: 1250px;
             margin: 15px auto 0;
@@ -381,7 +387,6 @@
             overflow-x: auto;
             padding-bottom: 6px;
             scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
         }
         .categories-scroll::-webkit-scrollbar { display: none; }
 
@@ -398,7 +403,6 @@
             gap: 8px;
             cursor: pointer;
             white-space: nowrap;
-            flex-shrink: 0;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
@@ -420,7 +424,7 @@
             color: var(--amarillo);
         }
 
-        /* 6. Grilla de Productos Grandes */
+        /* 6. Grilla de Productos con Fotos Reales */
         .catalog-container {
             max-width: 1250px;
             margin: 15px auto;
@@ -800,7 +804,6 @@
             border: 2px solid #fff;
         }
 
-        /* 9. Media Queries */
         @media (max-width: 768px) {
             .search-box { display: none; }
             .info-cards-section { grid-template-columns: 1fr; }
@@ -831,7 +834,7 @@
         </div>
     </div>
 
-    <!-- 2. Header: Logo Izq | Buscador Centro | Carrito Der -->
+    <!-- 2. Header / Barra de Navegación -->
     <header>
         <div class="nav-wrapper">
             <div class="logo-box" onclick="window.scrollTo({top:0, behavior:'smooth'})">
@@ -857,7 +860,7 @@
         </div>
     </header>
 
-    <!-- 3. Slider Automático de Banners -->
+    <!-- 3. Carteles que van pasando (Slider Automático) -->
     <section class="slider-section">
         <div class="carousel-container">
             <!-- Slide 1 -->
@@ -902,7 +905,7 @@
         </div>
     </section>
 
-    <!-- 4. Carteles de Beneficios -->
+    <!-- 4. Carteles de Beneficios / Servicios -->
     <div class="info-cards-section">
         <div class="info-card">
             <i class="fa-solid fa-motorcycle"></i>
@@ -935,11 +938,10 @@
             <button class="cat-pill" onclick="filterByCat('bebidas', this)"><i class="fa-solid fa-wine-bottle"></i> Bebidas & Cervezas</button>
             <button class="cat-pill" onclick="filterByCat('dulces', this)"><i class="fa-solid fa-cookie"></i> Chocolates & Dulces</button>
             <button class="cat-pill" onclick="filterByCat('snacks', this)"><i class="fa-solid fa-bowl-food"></i> Snacks Salados</button>
-            <button class="cat-pill" onclick="filterByCat('almacen', this)"><i class="fa-solid fa-shop"></i> Mini Almacén</button>
         </div>
     </div>
 
-    <!-- 6. Catálogo de Productos Grandes -->
+    <!-- 6. Catálogo de Productos con Imágenes Reales -->
     <main class="catalog-container">
         <div class="catalog-grid" id="catalogGrid"></div>
     </main>
@@ -950,7 +952,7 @@
         <div class="badge-float" id="floatCount">0</div>
     </button>
 
-    <!-- 8. Drawer Lateral del Carrito -->
+    <!-- 8. Drawer Carrito Lateral Desplegable -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-drawer-header">
@@ -1007,10 +1009,11 @@
         </div>
     </div>
 
-    <!-- Script de Lógica -->
+    <!-- Script de Lógica, Carrusel y Carrito -->
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
+        // Catálogo con imágenes fotográficas de productos reales
         const products = [
             {
                 id: 1,
@@ -1074,15 +1077,6 @@
                 oldPrice: 4400,
                 badge: "CRUJIENTE",
                 img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60"
-            },
-            {
-                id: 8,
-                name: "Yerba Mate Playadito 1kg",
-                cat: "almacen",
-                price: 5800,
-                oldPrice: null,
-                badge: null,
-                img: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=60"
             }
         ];
 
@@ -1114,7 +1108,7 @@
             moveSlide(1);
         }, 4500);
 
-        /* Catálogo */
+        /* Renderizar Productos */
         function renderProducts(items) {
             const grid = document.getElementById('catalogGrid');
             grid.innerHTML = '';
@@ -1170,7 +1164,7 @@
             renderProducts(filtered);
         }
 
-        /* Carrito */
+        /* Lógica del Carrito */
         function toggleCartDrawer() {
             document.getElementById('cartDrawer').classList.toggle('show');
             document.getElementById('cartOverlay').classList.toggle('show');
@@ -1282,6 +1276,7 @@
             window.open(url, '_blank');
         }
 
+        // Inicio
         renderProducts(products);
     </script>
 </body>
