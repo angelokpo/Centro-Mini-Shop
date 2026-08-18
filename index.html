@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro Mini Shop | Sunchales - Tienda Online 24hs</title>
+    <title>Centro Mini Shop | Sunchales - Tienda Online</title>
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --azul-brand: #1453b8;
             --azul-dark: #092857;
             --rojo-brand: #c1272d;
-            --rojo-neon: #ff2d37;
             --amarillo: #ffc700;
             --celeste-bg: #eaf3fd;
-            --gris-bg: #f2f5f9;
-            --gris-card: #ffffff;
-            --gris-borde: #e1e7f0;
+            --gris-bg: #f4f7fa;
+            --gris-borde: #e2e8f0;
             --texto-oscuro: #172133;
             --texto-mutado: #64748b;
-            --sombra-card: 0 10px 24px -6px rgba(20, 83, 184, 0.1), 0 4px 8px -4px rgba(0,0,0,0.05);
         }
 
         * {
@@ -34,43 +31,41 @@
         body {
             background-color: var(--gris-bg);
             color: var(--texto-oscuro);
-            padding-bottom: 90px;
+            padding-bottom: 70px;
         }
 
         .heading-font {
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* 1. Tira de Marquesina Animada (Ticker) */
-        .marquee-container {
+        /* 1. Ticker Superior */
+        .marquee-bar {
             background: var(--rojo-brand);
             color: #fff;
             overflow: hidden;
             white-space: nowrap;
+            height: 34px;
             display: flex;
             align-items: center;
-            height: 38px;
-            box-shadow: 0 2px 6px rgba(193, 39, 45, 0.3);
             border-bottom: 2px solid var(--amarillo);
         }
 
-        .marquee-track {
+        .marquee-inner {
             display: flex;
             animation: marquee 22s linear infinite;
             gap: 40px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
-        .marquee-track span {
+        .marquee-inner span {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .marquee-track span i {
+        .marquee-inner span i {
             color: var(--amarillo);
         }
 
@@ -79,521 +74,451 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* 2. Navbar Principal */
+        /* 2. Header: Logo Izquierda | Buscador Centro | Carrito Derecha */
         header {
             background: linear-gradient(135deg, var(--azul-brand), var(--azul-dark));
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 15px rgba(9, 40, 87, 0.25);
+            box-shadow: 0 4px 14px rgba(9, 40, 87, 0.25);
         }
 
-        .nav-wrapper {
+        .header-container {
             max-width: 1250px;
             margin: 0 auto;
             padding: 12px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 18px;
+            gap: 20px;
         }
 
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .logo-badge {
-            background: #fff;
-            color: var(--rojo-brand);
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            border: 2px solid var(--amarillo);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .logo-text h1 {
-            color: #fff;
-            font-size: 1.35rem;
-            font-weight: 900;
-            line-height: 1;
-            letter-spacing: -0.5px;
-        }
-
-        .logo-text h1 span {
-            color: var(--amarillo);
-        }
-
-        .logo-text small {
-            color: #d2e4ff;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .search-box {
-            flex: 1;
-            max-width: 480px;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 20px 12px 45px;
-            border-radius: 30px;
-            border: 2px solid transparent;
-            background: #ffffff;
-            font-size: 0.9rem;
-            outline: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.25s;
-        }
-
-        .search-box input:focus {
-            border-color: var(--amarillo);
-            box-shadow: 0 0 12px rgba(255, 199, 0, 0.4);
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--texto-mutado);
-        }
-
-        .btn-cart-nav {
-            background: var(--amarillo);
-            color: var(--azul-dark);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
+        .brand-logo {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: 800;
-            font-size: 0.95rem;
+            text-decoration: none;
             cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(255, 199, 0, 0.35);
+            flex-shrink: 0;
         }
 
-        .btn-cart-nav:hover {
-            transform: translateY(-2px);
-            background: #ffd333;
-        }
-
-        .cart-badge-nav {
-            background: var(--rojo-brand);
-            color: #fff;
-            font-size: 0.78rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 800;
-        }
-
-        /* 3. Slider de Banners / Carteles que Pasan */
-        .slider-section {
-            max-width: 1250px;
-            margin: 20px auto 10px;
-            padding: 0 20px;
-        }
-
-        .carousel-container {
-            position: relative;
-            border-radius: 22px;
-            overflow: hidden;
-            box-shadow: 0 12px 30px rgba(9, 40, 87, 0.18);
-            height: 240px;
-        }
-
-        .slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            transform: scale(1.03);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 50px;
-            color: #fff;
-        }
-
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .slide-bg-1 {
-            background: linear-gradient(110deg, #092857 0%, #1453b8 60%, #1e6bf2 100%);
-        }
-
-        .slide-bg-2 {
-            background: linear-gradient(110deg, #991419 0%, #c1272d 55%, #e63946 100%);
-        }
-
-        .slide-bg-3 {
-            background: linear-gradient(110deg, #0f172a 0%, #1e293b 60%, #334155 100%);
-        }
-
-        .slide-content h2 {
-            font-size: 2.2rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .slide-content h2 span {
-            color: var(--amarillo);
-        }
-
-        .slide-content p {
-            font-size: 1.05rem;
-            color: #f1f5f9;
-            margin-bottom: 16px;
-        }
-
-        .slide-tag {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .slide-illustration {
-            font-size: 6.5rem;
-            color: rgba(255, 255, 255, 0.25);
-            transform: rotate(-10deg);
-        }
-
-        /* Controles y Puntos del Slider */
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(5px);
-            border: none;
-            color: #fff;
+        .logo-icon {
+            background: #fff;
+            color: var(--rojo-brand);
             width: 42px;
             height: 42px;
-            border-radius: 50%;
-            cursor: pointer;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.2s;
-            z-index: 10;
+            font-size: 1.4rem;
+            border: 2px solid var(--amarillo);
+            flex-shrink: 0;
         }
 
-        .slider-arrow:hover {
+        .brand-text h1 {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .brand-text h1 span {
+            color: var(--amarillo);
+        }
+
+        .brand-text small {
+            color: #d2e4ff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 16px 10px 42px;
+            border-radius: 25px;
+            border: none;
+            background: #fff;
+            font-size: 0.88rem;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--texto-mutado);
+            font-size: 0.95rem;
+        }
+
+        .header-cart-btn {
             background: var(--amarillo);
             color: var(--azul-dark);
+            border: none;
+            padding: 9px 18px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: transform 0.2s, background 0.2s;
         }
 
-        .slider-arrow.prev { left: 15px; }
-        .slider-arrow.next { right: 15px; }
+        .header-cart-btn:hover {
+            transform: translateY(-2px);
+            background: #ffd533;
+        }
+
+        .cart-pill-count {
+            background: var(--rojo-brand);
+            color: #fff;
+            font-size: 0.72rem;
+            padding: 2px 7px;
+            border-radius: 12px;
+        }
+
+        /* 3. Slider / Carteles */
+        .slider-wrap {
+            max-width: 1250px;
+            margin: 18px auto 0;
+            padding: 0 20px;
+        }
+
+        .slider-box {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            height: 200px;
+            box-shadow: 0 8px 20px rgba(9, 40, 87, 0.15);
+        }
+
+        .slide-item {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            color: #fff;
+        }
+
+        .slide-item.active {
+            opacity: 1;
+        }
+
+        .bg-slide-1 { background: linear-gradient(115deg, #092857 0%, #1453b8 100%); }
+        .bg-slide-2 { background: linear-gradient(115deg, #991419 0%, #c1272d 100%); }
+        .bg-slide-3 { background: linear-gradient(115deg, #111827 0%, #374151 100%); }
+
+        .slide-txt h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 6px;
+        }
+
+        .slide-txt h2 span { color: var(--amarillo); }
+
+        .slide-txt p {
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            margin-bottom: 10px;
+        }
+
+        .slide-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .slide-ico {
+            font-size: 5.5rem;
+            color: rgba(255, 255, 255, 0.22);
+            transform: rotate(-10deg);
+        }
 
         .slider-dots {
             position: absolute;
-            bottom: 12px;
+            bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 6px;
             z-index: 10;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
+        .s-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255,255,255,0.4);
             cursor: pointer;
             transition: all 0.3s;
         }
 
-        .dot.active {
+        .s-dot.active {
             background: var(--amarillo);
-            width: 26px;
-            border-radius: 8px;
+            width: 22px;
+            border-radius: 6px;
         }
 
-        /* 4. Cartel Info / Envíos Sunchales */
-        .info-cards-section {
+        /* 4. Categorías */
+        .cat-section {
             max-width: 1250px;
-            margin: 15px auto 0;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .info-card {
-            background: #fff;
-            border-radius: 14px;
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border-left: 4px solid var(--azul-brand);
-        }
-
-        .info-card i {
-            font-size: 1.8rem;
-            color: var(--azul-brand);
-        }
-
-        .info-card h4 {
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: var(--texto-oscuro);
-        }
-
-        .info-card p {
-            font-size: 0.75rem;
-            color: var(--texto-mutado);
-        }
-
-        /* 5. Barra de Categorías */
-        .categories-container {
-            max-width: 1250px;
-            margin: 25px auto 10px;
+            margin: 18px auto 8px;
             padding: 0 20px;
         }
 
-        .categories-scroll {
+        .cat-scroll {
             display: flex;
             gap: 10px;
             overflow-x: auto;
             padding-bottom: 6px;
+            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
-        .categories-scroll::-webkit-scrollbar { display: none; }
+        .cat-scroll::-webkit-scrollbar { display: none; }
 
-        .cat-pill {
+        .cat-btn {
             background: #fff;
             border: 1.5px solid var(--gris-borde);
             padding: 9px 18px;
-            border-radius: 30px;
-            font-size: 0.88rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
             font-weight: 700;
             color: var(--texto-oscuro);
             display: flex;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
             white-space: nowrap;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .cat-pill i {
-            color: var(--azul-brand);
-            font-size: 1rem;
-        }
+        .cat-btn i { color: var(--azul-brand); font-size: 0.95rem; }
 
-        .cat-pill.active, .cat-pill:hover {
+        .cat-btn.active, .cat-btn:hover {
             background: var(--azul-brand);
             color: #fff;
             border-color: var(--azul-brand);
-            box-shadow: 0 6px 15px rgba(20, 83, 184, 0.25);
             transform: translateY(-2px);
         }
 
-        .cat-pill.active i, .cat-pill:hover i {
-            color: var(--amarillo);
-        }
+        .cat-btn.active i, .cat-btn:hover i { color: var(--amarillo); }
 
-        /* 6. Grilla de Productos con Fotos Reales */
-        .catalog-container {
+        /* 5. Catálogo Grid */
+        .catalog-box {
             max-width: 1250px;
-            margin: 15px auto;
+            margin: 10px auto;
             padding: 0 20px;
         }
 
         .catalog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 18px;
         }
 
-        .product-card {
-            background: var(--gris-card);
+        .card-product {
+            background: #fff;
             border: 1px solid var(--gris-borde);
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: var(--sombra-card);
-            transition: all 0.25s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 28px -8px rgba(20, 83, 184, 0.2);
-            border-color: #cbd5e1;
+        .card-product:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(9, 40, 87, 0.1);
         }
 
-        .product-badge {
+        .card-badge {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 8px;
+            left: 8px;
             background: var(--rojo-brand);
             color: #fff;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 6px;
+            padding: 3px 7px;
+            border-radius: 5px;
             z-index: 2;
-            box-shadow: 0 2px 6px rgba(193, 39, 45, 0.3);
         }
 
-        .img-wrapper {
+        .card-img {
             width: 100%;
-            height: 160px;
+            height: 150px;
             background: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 10px;
-            position: relative;
             border-bottom: 1px solid var(--gris-borde);
         }
 
-        .img-wrapper img {
+        .card-img img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            transition: transform 0.3s;
+            transition: transform 0.25s;
         }
 
-        .product-card:hover .img-wrapper img {
-            transform: scale(1.08);
+        .card-product:hover .card-img img {
+            transform: scale(1.06);
         }
 
-        .product-details {
-            padding: 14px;
+        .card-body {
+            padding: 12px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
             justify-content: space-between;
         }
 
-        .product-cat-name {
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: var(--azul-brand);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 2px;
-        }
-
-        .product-title {
-            font-size: 0.9rem;
+        .card-title {
+            font-size: 0.85rem;
             font-weight: 700;
             line-height: 1.3;
             color: var(--texto-oscuro);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             min-height: 36px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .price-container {
-            display: flex;
-            align-items: baseline;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .current-price {
-            font-size: 1.25rem;
+        .card-price {
+            font-size: 1.15rem;
             font-weight: 900;
             color: var(--rojo-brand);
             font-family: 'Montserrat', sans-serif;
+            margin-bottom: 10px;
         }
 
-        .old-price {
-            font-size: 0.8rem;
+        .card-price span {
+            font-size: 0.75rem;
             color: var(--texto-mutado);
             text-decoration: line-through;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            margin-left: 5px;
         }
 
         .btn-add {
             background: var(--azul-brand);
             color: #fff;
             border: none;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 9px;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            transition: background 0.2s, transform 0.1s;
+            gap: 6px;
+            width: 100%;
+            transition: background 0.2s;
         }
 
         .btn-add:hover {
             background: var(--azul-dark);
         }
 
-        .btn-add:active {
-            transform: scale(0.97);
+        /* 6. Botón Flotante Mobile */
+        .cart-float {
+            display: none;
+            position: fixed;
+            bottom: 18px;
+            right: 18px;
+            background: var(--rojo-brand);
+            color: #fff;
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 6px 18px rgba(193, 39, 45, 0.45);
+            cursor: pointer;
+            z-index: 90;
         }
 
-        /* 7. Drawer Lateral del Carrito */
-        .cart-overlay {
+        .float-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--amarillo);
+            color: var(--azul-dark);
+            font-size: 0.72rem;
+            font-weight: 900;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+        }
+
+        /* 7. Drawer Lateral Desktop / Bottom Sheet Mobile */
+        .drawer-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(9, 40, 87, 0.5);
-            backdrop-filter: blur(4px);
+            background: rgba(9, 40, 87, 0.55);
+            backdrop-filter: blur(3px);
             z-index: 998;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
         }
 
-        .cart-overlay.show { opacity: 1; visibility: visible; }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
 
-        .cart-drawer {
+        .drawer-sheet {
             position: fixed;
             top: 0;
             right: -440px;
-            width: 100%;
-            max-width: 420px;
+            width: 420px;
             height: 100%;
             background: #fff;
             z-index: 999;
-            box-shadow: -6px 0 25px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
+            box-shadow: -6px 0 25px rgba(0,0,0,0.18);
             transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .cart-drawer.show { right: 0; }
+        .drawer-sheet.active { right: 0; }
 
-        .cart-drawer-header {
+        .drawer-head {
             background: var(--azul-dark);
             color: #fff;
             padding: 16px 20px;
@@ -603,40 +528,40 @@
             border-bottom: 3px solid var(--amarillo);
         }
 
-        .cart-drawer-header h3 {
-            font-size: 1.1rem;
+        .drawer-head h3 {
+            font-size: 1.05rem;
             font-weight: 800;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn-close-cart {
+        .btn-close-sheet {
             background: rgba(255,255,255,0.15);
             border: none;
             color: #fff;
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            transition: 0.2s;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .btn-close-cart:hover {
+        .btn-close-sheet:hover {
             background: var(--rojo-brand);
         }
 
-        .cart-drawer-body {
+        .drawer-body {
             flex: 1;
             overflow-y: auto;
-            padding: 18px 20px;
+            padding: 16px 20px;
         }
 
-        .cart-item-row {
+        .cart-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -644,32 +569,32 @@
             border-bottom: 1px dashed var(--gris-borde);
         }
 
-        .item-info h4 { font-size: 0.85rem; font-weight: 700; }
-        .item-info span { font-size: 0.8rem; color: var(--rojo-brand); font-weight: 700; }
+        .c-info h4 { font-size: 0.85rem; font-weight: 700; max-width: 210px; }
+        .c-info span { font-size: 0.8rem; color: var(--rojo-brand); font-weight: 700; }
 
-        .item-controls {
+        .c-controls {
             display: flex;
             align-items: center;
             gap: 6px;
             background: var(--gris-bg);
             padding: 4px 8px;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
-        .btn-qty {
+        .c-btn {
             background: #fff;
             border: 1px solid var(--gris-borde);
             width: 22px;
             height: 22px;
-            border-radius: 5px;
+            border-radius: 4px;
             font-weight: 800;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             cursor: pointer;
         }
 
-        .qty-label { font-size: 0.85rem; font-weight: 800; min-width: 14px; text-align: center; }
+        .c-qty { font-size: 0.82rem; font-weight: 800; min-width: 16px; text-align: center; }
 
-        .checkout-box {
+        .form-checkout {
             background: var(--celeste-bg);
             border-radius: 12px;
             padding: 14px;
@@ -677,52 +602,41 @@
             border: 1px solid #cbe0f8;
         }
 
-        .checkout-box h4 {
+        .form-checkout h4 {
             font-size: 0.82rem;
             font-weight: 800;
             color: var(--azul-dark);
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .form-group {
-            margin-bottom: 10px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--texto-mutado);
-            margin-bottom: 4px;
-        }
-
-        .form-group input, .form-group select {
+        .f-group { margin-bottom: 10px; }
+        .f-group label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--texto-mutado); margin-bottom: 4px; }
+        .f-group input, .f-group select {
             width: 100%;
             padding: 9px 12px;
-            border: 1.5px solid #b6d4fe;
-            border-radius: 8px;
+            border: 1px solid #b6d4fe;
+            border-radius: 6px;
             font-size: 0.85rem;
             background: #fff;
             outline: none;
         }
 
-        .cart-drawer-footer {
-            padding: 18px 20px;
+        .drawer-foot {
+            padding: 16px 20px;
             background: #fff;
             border-top: 1px solid var(--gris-borde);
         }
 
-        .calc-row {
+        .f-row {
             display: flex;
             justify-content: space-between;
             font-size: 0.85rem;
             color: var(--texto-mutado);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
-        .calc-total {
+        .f-total {
             display: flex;
             justify-content: space-between;
             font-size: 1.25rem;
@@ -734,305 +648,250 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        .calc-total span:last-child {
-            color: var(--rojo-brand);
-        }
+        .f-total span:last-child { color: var(--rojo-brand); }
 
-        .btn-send-whatsapp {
+        .btn-wp-send {
             width: 100%;
             background: #25d366;
             color: #fff;
             border: none;
             padding: 13px;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 0.95rem;
             font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             margin-top: 12px;
-            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
-            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: background 0.2s;
         }
 
-        .btn-send-whatsapp:hover {
+        .btn-wp-send:hover {
             background: #20ba5a;
-            transform: translateY(-2px);
         }
 
-        /* 8. Botón Flotante Mobile */
-        .cart-float-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--rojo-brand);
-            color: #fff;
-            border: none;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.35rem;
-            box-shadow: 0 8px 20px rgba(193, 39, 45, 0.4);
-            cursor: pointer;
-            z-index: 90;
-            transition: transform 0.2s;
-        }
-
-        .cart-float-btn:hover {
-            transform: scale(1.08);
-        }
-
-        .badge-float {
-            position: absolute;
-            top: -2px;
-            right: -2px;
-            background: var(--amarillo);
-            color: var(--azul-dark);
-            font-size: 0.75rem;
-            font-weight: 900;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #fff;
+        /* 8. Media Queries Específicos */
+        @media (max-width: 1024px) {
+            .catalog-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .search-box { display: none; }
-            .info-cards-section { grid-template-columns: 1fr; }
-            .carousel-container { height: 180px; }
-            .slide { padding: 0 20px; }
-            .slide-content h2 { font-size: 1.3rem; }
-            .slide-illustration { display: none; }
+            .header-container { padding: 10px 14px; gap: 10px; }
+            .brand-text small { display: none; }
+            .brand-text h1 { font-size: 1rem; }
+            .header-cart-btn span:not(.cart-pill-count) { display: none; }
+            .header-cart-btn { padding: 8px 12px; }
+            .slider-wrap { padding: 0 14px; margin-top: 12px; }
+            .slider-box { height: 140px; }
+            .slide-item { padding: 0 16px; }
+            .slide-txt h2 { font-size: 1.15rem; }
+            .slide-txt p { font-size: 0.75rem; margin-bottom: 6px; }
+            .slide-ico { font-size: 3.5rem; }
+            .cat-section { padding: 0 14px; margin-top: 12px; }
+            .catalog-box { padding: 0 14px; }
             .catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .img-wrapper { height: 125px; }
-            .product-title { font-size: 0.82rem; min-height: 32px; }
-            .current-price { font-size: 1.05rem; }
+            .card-img { height: 120px; padding: 6px; }
+            .card-title { font-size: 0.78rem; min-height: 32px; }
+            .card-price { font-size: 1.05rem; }
+            .cart-float { display: flex; }
+
+            .drawer-sheet {
+                top: auto;
+                bottom: -100%;
+                right: 0;
+                left: 0;
+                width: 100%;
+                max-height: 88vh;
+                border-radius: 20px 20px 0 0;
+                transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .drawer-sheet.active { bottom: 0; right: 0; }
+            .drawer-head { border-radius: 20px 20px 0 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Tira de Marquesina Animada -->
-    <div class="marquee-container">
-        <div class="marquee-track">
-            <span><i class="fa-solid fa-fire"></i> ¡PROMOS IMPERDIBLES EN SUNCHALES!</span>
-            <span><i class="fa-solid fa-motorcycle"></i> DELIVERY RÁPIDO A TU CASA</span>
-            <span><i class="fa-solid fa-clock"></i> ABIERTO TODOS LOS DÍAS</span>
-            <span><i class="fa-solid fa-star"></i> BEBIDAS HELADAS, GOLOSINAS Y SNACKS</span>
-            <span><i class="fa-solid fa-fire"></i> ¡PROMOS IMPERDIBLES EN SUNCHALES!</span>
-            <span><i class="fa-solid fa-motorcycle"></i> DELIVERY RÁPIDO A TU CASA</span>
-            <span><i class="fa-solid fa-clock"></i> ABIERTO TODOS LOS DÍAS</span>
-            <span><i class="fa-solid fa-star"></i> BEBIDAS HELADAS, GOLOSINAS Y SNACKS</span>
+    <!-- 1. Ticker Superior -->
+    <div class="marquee-bar">
+        <div class="marquee-inner">
+            <span><i class="fa-solid fa-motorcycle"></i> DELIVERY EN SUNCHALES</span>
+            <span><i class="fa-solid fa-fire"></i> PROMOS PREVIA & BEBIDAS HELADAS</span>
+            <span><i class="fa-solid fa-bolt"></i> PEDÍ DIRECTO AL WHATSAPP</span>
+            <span><i class="fa-solid fa-motorcycle"></i> DELIVERY EN SUNCHALES</span>
+            <span><i class="fa-solid fa-fire"></i> PROMOS PREVIA & BEBIDAS HELADAS</span>
         </div>
     </div>
 
-    <!-- 2. Header / Barra de Navegación -->
+    <!-- 2. Header: Logo Izq | Buscador Centro | Carrito Der -->
     <header>
-        <div class="nav-wrapper">
-            <div class="logo-box" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                <div class="logo-badge">
+        <div class="header-container">
+            <div class="brand-logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="logo-icon">
                     <i class="fa-solid fa-basket-shopping"></i>
                 </div>
-                <div class="logo-text">
+                <div class="brand-text">
                     <h1 class="heading-font">CENTRO <span>MINI SHOP</span></h1>
                     <small>Sunchales • Santa Fe</small>
                 </div>
             </div>
 
-            <div class="search-box">
+            <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Buscá alfajores, bebidas, combos previa..." onkeyup="searchFilter()">
+                <input type="text" id="searchInput" placeholder="Buscá por nombre, categoría o promo..." onkeyup="filterItems()">
             </div>
 
-            <button class="btn-cart-nav heading-font" onclick="toggleCartDrawer()">
+            <button class="header-cart-btn heading-font" onclick="toggleDrawer()">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>Mi Pedido</span>
-                <span class="cart-badge-nav" id="headerCount">0</span>
+                <span class="cart-pill-count" id="headerCount">0</span>
             </button>
         </div>
     </header>
 
-    <!-- 3. Carteles que van pasando (Slider Automático) -->
-    <section class="slider-section">
-        <div class="carousel-container">
-            <!-- Slide 1 -->
-            <div class="slide slide-bg-1 active">
-                <div class="slide-content">
-                    <div class="slide-tag"><i class="fa-solid fa-fire"></i> Especial Previa</div>
-                    <h2 class="heading-font">FERNET + COCA COLA<br><span>¡EN PROMO HOY!</span></h2>
-                    <p>Armá la juntada al toque. Envío express en Sunchales.</p>
+    <!-- 3. Slider Adaptado -->
+    <div class="slider-wrap">
+        <div class="slider-box">
+            <div class="slide-item bg-slide-1 active">
+                <div class="slide-txt">
+                    <div class="slide-tag"><i class="fa-solid fa-fire"></i> ESPECIAL PREVIA</div>
+                    <h2 class="heading-font">FERNET + COCA<br><span>PROMO HOY</span></h2>
+                    <p>Envío express en todo Sunchales.</p>
                 </div>
-                <i class="fa-solid fa-champagne-glasses slide-illustration"></i>
+                <i class="fa-solid fa-champagne-glasses slide-ico"></i>
             </div>
 
-            <!-- Slide 2 -->
-            <div class="slide slide-bg-2">
-                <div class="slide-content">
-                    <div class="slide-tag"><i class="fa-solid fa-bolt"></i> Antojo Dulce</div>
-                    <h2 class="heading-font">CHOCOLATES & ALFAJORES<br><span>LOS MEJORES PRECIOS</span></h2>
-                    <p>Milka, Block, Havanna y todas tus golosinas favoritas.</p>
+            <div class="slide-item bg-slide-2">
+                <div class="slide-txt">
+                    <div class="slide-tag"><i class="fa-solid fa-bolt"></i> DULCES & ANTOJOS</div>
+                    <h2 class="heading-font">CHOCOLATES<br><span>AL MEJOR PRECIO</span></h2>
+                    <p>Milka, Block, Havanna y todas las marcas.</p>
                 </div>
-                <i class="fa-solid fa-cookie-bite slide-illustration"></i>
+                <i class="fa-solid fa-cookie-bite slide-ico"></i>
             </div>
 
-            <!-- Slide 3 -->
-            <div class="slide slide-bg-3">
-                <div class="slide-content">
-                    <div class="slide-tag"><i class="fa-solid fa-snowflake"></i> 100% Heladas</div>
-                    <h2 class="heading-font">CERVEZAS & ENERGIZANTES<br><span>LISTAS PARA DISFRUTAR</span></h2>
-                    <p>Llegan frías a tu puerta en minutos.</p>
+            <div class="slide-item bg-slide-3">
+                <div class="slide-txt">
+                    <div class="slide-tag"><i class="fa-solid fa-snowflake"></i> 100% HELADAS</div>
+                    <h2 class="heading-font">CERVEZAS<br><span>DIRECTO A TU CASA</span></h2>
+                    <p>Llegan listas para disfrutar.</p>
                 </div>
-                <i class="fa-solid fa-beer-mug-empty slide-illustration"></i>
+                <i class="fa-solid fa-beer-mug-empty slide-ico"></i>
             </div>
-
-            <!-- Flechas y Puntos -->
-            <button class="slider-arrow prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="slider-arrow next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
 
             <div class="slider-dots">
-                <div class="dot active" onclick="setSlide(0)"></div>
-                <div class="dot" onclick="setSlide(1)"></div>
-                <div class="dot" onclick="setSlide(2)"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. Carteles de Beneficios / Servicios -->
-    <div class="info-cards-section">
-        <div class="info-card">
-            <i class="fa-solid fa-motorcycle"></i>
-            <div>
-                <h4>Delivery a Domicilio</h4>
-                <p>Envíos a todos los barrios de Sunchales.</p>
-            </div>
-        </div>
-        <div class="info-card" style="border-left-color: var(--rojo-brand);">
-            <i class="fa-solid fa-wallet" style="color: var(--rojo-brand);"></i>
-            <div>
-                <h4>Efectivo o Transferencia</h4>
-                <p>Pagá al recibir o por Mercado Pago.</p>
-            </div>
-        </div>
-        <div class="info-card" style="border-left-color: var(--amarillo);">
-            <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
-            <div>
-                <h4>Atención WhatsApp</h4>
-                <p>Confirmación inmediata de tu pedido.</p>
+                <div class="s-dot active" onclick="setSlide(0)"></div>
+                <div class="s-dot" onclick="setSlide(1)"></div>
+                <div class="s-dot" onclick="setSlide(2)"></div>
             </div>
         </div>
     </div>
 
-    <!-- 5. Filtros de Categorías -->
-    <div class="categories-container">
-        <div class="categories-scroll">
-            <button class="cat-pill active" onclick="filterByCat('todos', this)"><i class="fa-solid fa-star"></i> Todos</button>
-            <button class="cat-pill" onclick="filterByCat('combos', this)"><i class="fa-solid fa-fire"></i> Combos Previa</button>
-            <button class="cat-pill" onclick="filterByCat('bebidas', this)"><i class="fa-solid fa-wine-bottle"></i> Bebidas & Cervezas</button>
-            <button class="cat-pill" onclick="filterByCat('dulces', this)"><i class="fa-solid fa-cookie"></i> Chocolates & Dulces</button>
-            <button class="cat-pill" onclick="filterByCat('snacks', this)"><i class="fa-solid fa-bowl-food"></i> Snacks Salados</button>
-            <button class="cat-pill" onclick="filterByCat('almacen', this)"><i class="fa-solid fa-shop"></i> Mini Almacén</button>
+    <!-- 4. Categorías -->
+    <div class="cat-section">
+        <div class="cat-scroll">
+            <button class="cat-btn active" onclick="filterCategory('todos', this)"><i class="fa-solid fa-star"></i> Todos</button>
+            <button class="cat-btn" onclick="filterCategory('combos', this)"><i class="fa-solid fa-fire"></i> Combos</button>
+            <button class="cat-btn" onclick="filterCategory('bebidas', this)"><i class="fa-solid fa-wine-bottle"></i> Bebidas</button>
+            <button class="cat-btn" onclick="filterCategory('dulces', this)"><i class="fa-solid fa-cookie"></i> Golosinas</button>
+            <button class="cat-btn" onclick="filterCategory('snacks', this)"><i class="fa-solid fa-bowl-food"></i> Snacks</button>
+            <button class="cat-btn" onclick="filterCategory('almacen', this)"><i class="fa-solid fa-shop"></i> Almacén</button>
         </div>
     </div>
 
-    <!-- 6. Catálogo de Productos con Imágenes Reales -->
-    <main class="catalog-container">
-        <div class="catalog-grid" id="catalogGrid"></div>
+    <!-- 5. Catálogo -->
+    <main class="catalog-box">
+        <div class="catalog-grid" id="productsGrid"></div>
     </main>
 
-    <!-- 7. Botón Flotante Carrito Mobile -->
-    <button class="cart-float-btn" onclick="toggleCartDrawer()">
+    <!-- 6. Botón Flotante Mobile -->
+    <button class="cart-float" onclick="toggleDrawer()">
         <i class="fa-solid fa-cart-shopping"></i>
-        <div class="badge-float" id="floatCount">0</div>
+        <div class="float-badge" id="floatCount">0</div>
     </button>
 
-    <!-- 8. Drawer Carrito Lateral Desplegable -->
-    <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
-    <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-drawer-header">
+    <!-- 7. Drawer de Carrito -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+    <div class="drawer-sheet" id="drawerSheet">
+        <div class="drawer-head">
             <h3 class="heading-font"><i class="fa-solid fa-bag-shopping"></i> Tu Pedido Online</h3>
-            <button class="btn-close-cart" onclick="toggleCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="btn-close-sheet" onclick="toggleDrawer()"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <div class="cart-drawer-body">
-            <div id="cartItemsList"></div>
+        <div class="drawer-body">
+            <div id="cartList"></div>
 
-            <div class="checkout-box">
+            <div class="form-checkout">
                 <h4 class="heading-font"><i class="fa-solid fa-location-dot"></i> Datos de Entrega</h4>
 
-                <div class="form-group">
+                <div class="f-group">
                     <label>Tu Dirección en Sunchales:</label>
-                    <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450 o Barrio">
+                    <input type="text" id="orderAddr" placeholder="Ej: Alem 450 o Barrio">
                 </div>
 
-                <div class="form-group">
+                <div class="f-group">
                     <label>Zona de Envío:</label>
-                    <select id="custZone" onchange="calcTotals()">
-                        <option value="600">Zona Centro / Cercanías ($600)</option>
-                        <option value="900">Barrio Cooperativo / Moreno / Colón ($900)</option>
-                        <option value="1400">Loteos Periféricos / Zona Rural ($1.400)</option>
+                    <select id="orderZone" onchange="calcTotal()">
+                        <option value="600">Zona Centro ($600)</option>
+                        <option value="900">Barrios (Moreno, Colón, Coop.) ($900)</option>
+                        <option value="1400">Loteos y Periferia ($1.400)</option>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="f-group">
                     <label>Forma de Pago:</label>
-                    <select id="custPayment">
-                        <option value="Efectivo al recibir">Efectivo contra entrega</option>
+                    <select id="orderPay">
+                        <option value="Efectivo al recibir">Efectivo al recibir</option>
                         <option value="Transferencia / Mercado Pago">Transferencia / Mercado Pago</option>
                     </select>
                 </div>
             </div>
         </div>
 
-        <div class="cart-drawer-footer">
-            <div class="calc-row">
-                <span>Subtotal productos:</span>
-                <span id="subtotalText">$0</span>
+        <div class="drawer-foot">
+            <div class="f-row">
+                <span>Subtotal:</span>
+                <span id="subTotalTxt">$0</span>
             </div>
-            <div class="calc-row">
-                <span>Costo de envío:</span>
-                <span id="shippingText">$600</span>
+            <div class="f-row">
+                <span>Envío:</span>
+                <span id="shipTxt">$600</span>
             </div>
-            <div class="calc-total">
+            <div class="f-total">
                 <span>TOTAL:</span>
-                <span id="totalText">$600</span>
+                <span id="totalTxt">$600</span>
             </div>
-            <button class="btn-send-whatsapp heading-font" onclick="sendToWhatsApp()">
-                <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Pedir por WhatsApp
+            <button class="btn-wp-send heading-font" onclick="checkoutWA()">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Pedir por WhatsApp
             </button>
         </div>
     </div>
 
-    <!-- Script de Lógica, Carrusel y Carrito -->
+    <!-- Script -->
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Catálogo con imágenes fotográficas de productos reales
-        const products = [
+        const items = [
             {
                 id: 1,
-                name: "Fernet Branca 750ml + 2 Coca-Cola 1.5L",
+                name: "Fernet Branca 750ml + 2 Coca 1.5L",
                 cat: "combos",
                 price: 29500,
                 oldPrice: 32000,
-                badge: "PROMO PREVIA",
-                img: "https://images.unsplash.com/photo-1527061011665-3652c757a4d4?w=500&auto=format&fit=crop&q=60"
+                badge: "PREVIA",
+                img: "https://images.unsplash.com/photo-1527061011665-3652c757a4d4?w=400&auto=format&fit=crop&q=60"
             },
             {
                 id: 2,
-                name: "Six Pack Cerveza Heineken Lata 473ml",
+                name: "Six Pack Heineken Lata 473ml",
                 cat: "bebidas",
                 price: 12500,
                 oldPrice: 14000,
                 badge: "HELADAS",
-                img: "https://images.unsplash.com/photo-1608270199042-3a3628e9389f?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.unsplash.com/photo-1608270199042-3a3628e9389f?w=400&auto=format&fit=crop&q=60"
             },
             {
                 id: 3,
@@ -1040,17 +899,17 @@
                 cat: "dulces",
                 price: 3200,
                 oldPrice: null,
-                badge: "TENTACIÓN",
-                img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=500&auto=format&fit=crop&q=60"
+                badge: "PROMO",
+                img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400&auto=format&fit=crop&q=60"
             },
             {
                 id: 4,
-                name: "Papas Fritas Lays Clásicas 140g",
+                name: "Papas Lays Clásicas 140g",
                 cat: "snacks",
                 price: 3500,
                 oldPrice: null,
                 badge: null,
-                img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400&auto=format&fit=crop&q=60"
             },
             {
                 id: 5,
@@ -1058,17 +917,17 @@
                 cat: "dulces",
                 price: 2600,
                 oldPrice: null,
-                badge: "PREMIUM",
-                img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&auto=format&fit=crop&q=60"
+                badge: null,
+                img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&auto=format&fit=crop&q=60"
             },
             {
                 id: 6,
-                name: "Gaseosa Coca-Cola Original 2.25L",
+                name: "Coca-Cola Original 2.25L",
                 cat: "bebidas",
                 price: 4300,
                 oldPrice: null,
                 badge: null,
-                img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=400&auto=format&fit=crop&q=60"
             },
             {
                 id: 7,
@@ -1076,76 +935,65 @@
                 cat: "snacks",
                 price: 3900,
                 oldPrice: 4400,
-                badge: "CRUJIENTE",
-                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60"
+                badge: "CRUNCH",
+                img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&auto=format&fit=crop&q=60"
             },
             {
                 id: 8,
-                name: "Yerba Mate Playadito 1kg",
+                name: "Yerba Playadito 1kg",
                 cat: "almacen",
                 price: 5800,
                 oldPrice: null,
                 badge: null,
-                img: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=60"
+                img: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=400&auto=format&fit=crop&q=60"
             }
         ];
 
         let cart = [];
 
-        /* Slider Automático */
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
+        /* Slider */
+        let activeIdx = 0;
+        const slides = document.querySelectorAll('.slide-item');
+        const dots = document.querySelectorAll('.s-dot');
 
-        function showSlide(index) {
+        function showSlide(idx) {
             slides.forEach(s => s.classList.remove('active'));
             dots.forEach(d => d.classList.remove('active'));
-            
-            currentSlide = (index + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            dots[currentSlide].classList.add('active');
+            activeIdx = (idx + slides.length) % slides.length;
+            slides[activeIdx].classList.add('active');
+            dots[activeIdx].classList.add('active');
         }
 
-        function moveSlide(step) {
-            showSlide(currentSlide + step);
-        }
-
-        function setSlide(index) {
-            showSlide(index);
-        }
+        function setSlide(idx) { showSlide(idx); }
 
         setInterval(() => {
-            moveSlide(1);
-        }, 4500);
+            showSlide(activeIdx + 1);
+        }, 4000);
 
-        /* Renderizar Productos */
-        function renderProducts(items) {
-            const grid = document.getElementById('catalogGrid');
+        /* Catálogo */
+        function renderItems(list) {
+            const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
 
-            if (items.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888;">No hay productos disponibles.</div>`;
+            if (list.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#888; font-size:0.9rem;">No se encontraron productos.</div>`;
                 return;
             }
 
-            items.forEach(p => {
-                const badgeTag = p.badge ? `<div class="product-badge">${p.badge}</div>` : '';
-                const oldPriceTag = p.oldPrice ? `<span class="old-price">$${p.oldPrice.toLocaleString('es-AR')}</span>` : '';
+            list.forEach(p => {
+                const badge = p.badge ? `<div class="card-badge">${p.badge}</div>` : '';
+                const old = p.oldPrice ? `<span>$${p.oldPrice.toLocaleString('es-AR')}</span>` : '';
 
                 grid.innerHTML += `
-                    <div class="product-card">
-                        ${badgeTag}
-                        <div class="img-wrapper">
+                    <div class="card-product">
+                        ${badge}
+                        <div class="card-img">
                             <img src="${p.img}" alt="${p.name}" loading="lazy">
                         </div>
-                        <div class="product-details">
-                            <span class="product-cat-name">${p.cat}</span>
-                            <h3 class="product-title">${p.name}</h3>
-                            <div class="price-container">
-                                <span class="current-price">$${p.price.toLocaleString('es-AR')}</span>
-                                ${oldPriceTag}
-                            </div>
-                            <button class="btn-add heading-font" onclick="addToCart(${p.id})">
+                        <div class="card-body">
+                            <h3 class="card-title">${p.name}</h3>
+                            <div class="card-price">$${p.price.toLocaleString('es-AR')}${old}</div>
+                            <button class="btn-add heading-font" onclick="addCart(${p.id})">
                                 <i class="fa-solid fa-plus"></i> AGREGAR
                             </button>
                         </div>
@@ -1154,140 +1002,130 @@
             });
         }
 
-        function filterByCat(cat, btn) {
-            document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
 
             if (cat === 'todos') {
-                renderProducts(products);
+                renderItems(items);
             } else {
-                renderProducts(products.filter(p => p.cat === cat));
+                renderItems(items.filter(i => i.cat === cat));
             }
         }
 
-        function searchFilter() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.cat.toLowerCase().includes(query)
-            );
-            renderProducts(filtered);
+        function filterItems() {
+            const q = document.getElementById('searchInput').value.toLowerCase().trim();
+            const res = items.filter(i => i.name.toLowerCase().includes(q) || i.cat.toLowerCase().includes(q));
+            renderItems(res);
         }
 
-        /* Lógica del Carrito */
-        function toggleCartDrawer() {
-            document.getElementById('cartDrawer').classList.toggle('show');
-            document.getElementById('cartOverlay').classList.toggle('show');
+        /* Carrito */
+        function toggleDrawer() {
+            document.getElementById('drawerSheet').classList.toggle('active');
+            document.getElementById('drawerOverlay').classList.toggle('active');
         }
 
-        function addToCart(id) {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.qty += 1;
+        function addCart(id) {
+            const exist = cart.find(i => i.id === id);
+            if (exist) {
+                exist.qty += 1;
             } else {
-                const prod = products.find(p => p.id === id);
+                const prod = items.find(p => p.id === id);
                 cart.push({ ...prod, qty: 1 });
             }
             updateCartUI();
         }
 
-        function changeQty(id, delta) {
+        function changeQty(id, d) {
             const item = cart.find(i => i.id === id);
             if (!item) return;
-
-            item.qty += delta;
-            if (item.qty <= 0) {
-                cart = cart.filter(i => i.id !== id);
-            }
+            item.qty += d;
+            if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
             updateCartUI();
         }
 
         function updateCartUI() {
-            const list = document.getElementById('cartItemsList');
-            const totalItems = cart.reduce((acc, i) => acc + i.qty, 0);
+            const list = document.getElementById('cartList');
+            const totalCount = cart.reduce((acc, i) => acc + i.qty, 0);
 
-            document.getElementById('headerCount').innerText = totalItems;
-            document.getElementById('floatCount').innerText = totalItems;
+            document.getElementById('headerCount').innerText = totalCount;
+            document.getElementById('floatCount').innerText = totalCount;
 
             if (cart.length === 0) {
                 list.innerHTML = `
                     <div style="text-align:center; padding: 40px 10px; color:#94a3b8;">
-                        <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 8px; opacity:0.4;"></i>
-                        <p style="font-size:0.9rem;">El carrito está vacío.</p>
+                        <i class="fa-solid fa-cart-shopping" style="font-size: 2.5rem; margin-bottom: 8px; opacity:0.4;"></i>
+                        <p style="font-size:0.85rem;">El carrito está vacío.</p>
                     </div>
                 `;
             } else {
                 list.innerHTML = cart.map(i => `
-                    <div class="cart-item-row">
-                        <div class="item-info">
+                    <div class="cart-row">
+                        <div class="c-info">
                             <h4>${i.name}</h4>
                             <span>$${(i.price * i.qty).toLocaleString('es-AR')}</span>
                         </div>
-                        <div class="item-controls">
-                            <button class="btn-qty" onclick="changeQty(${i.id}, -1)">-</button>
-                            <span class="qty-label">${i.qty}</span>
-                            <button class="btn-qty" onclick="changeQty(${i.id}, 1)">+</button>
+                        <div class="c-controls">
+                            <button class="c-btn" onclick="changeQty(${i.id}, -1)">-</button>
+                            <span class="c-qty">${i.qty}</span>
+                            <button class="c-btn" onclick="changeQty(${i.id}, 1)">+</button>
                         </div>
                     </div>
                 `).join('');
             }
 
-            calcTotals();
+            calcTotal();
         }
 
-        function calcTotals() {
-            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-            const shipping = cart.length > 0 ? parseInt(document.getElementById('custZone').value) : 0;
-            const total = subtotal + shipping;
+        function calcTotal() {
+            const sub = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            const ship = cart.length > 0 ? parseInt(document.getElementById('orderZone').value) : 0;
+            const tot = sub + ship;
 
-            document.getElementById('subtotalText').innerText = `$${subtotal.toLocaleString('es-AR')}`;
-            document.getElementById('shippingText').innerText = `$${shipping.toLocaleString('es-AR')}`;
-            document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
+            document.getElementById('subTotalTxt').innerText = `$${sub.toLocaleString('es-AR')}`;
+            document.getElementById('shipTxt').innerText = `$${ship.toLocaleString('es-AR')}`;
+            document.getElementById('totalTxt').innerText = `$${tot.toLocaleString('es-AR')}`;
         }
 
-        function sendToWhatsApp() {
+        function checkoutWA() {
             if (cart.length === 0) {
-                alert("Tu carrito está vacío. Sumá artículos para realizar el pedido.");
+                alert("Tu carrito está vacío.");
                 return;
             }
 
-            const address = document.getElementById('custAddress').value.trim();
-            if (!address) {
-                alert("Por favor completá tu dirección en Sunchales.");
-                document.getElementById('custAddress').focus();
+            const addr = document.getElementById('orderAddr').value.trim();
+            if (!addr) {
+                alert("Completá tu dirección de entrega en Sunchales.");
+                document.getElementById('orderAddr').focus();
                 return;
             }
 
-            const zoneElem = document.getElementById('custZone');
-            const zoneText = zoneElem.options[zoneElem.selectedIndex].text;
-            const shippingCost = parseInt(zoneElem.value);
-            const payment = document.getElementById('custPayment').value;
-            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-            const total = subtotal + shippingCost;
+            const zone = document.getElementById('orderZone');
+            const zoneTxt = zone.options[zone.selectedIndex].text;
+            const shipCost = parseInt(zone.value);
+            const pay = document.getElementById('orderPay').value;
+            const sub = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            const tot = sub + shipCost;
 
             let msg = `🛒 *PEDIDO ONLINE - CENTRO MINI SHOP*\n`;
-            msg += `═════════════════════════\n`;
-            msg += `📍 *Dirección:* ${address}\n`;
-            msg += `🛵 *Zona:* ${zoneText}\n`;
-            msg += `💳 *Método de Pago:* ${payment}\n`;
-            msg += `═════════════════════════\n`;
-            msg += `📋 *PRODUCTOS SELECCIONADOS:*\n`;
+            msg += `📍 *Dirección:* ${addr}\n`;
+            msg += `🛵 *Zona:* ${zoneTxt}\n`;
+            msg += `💳 *Pago:* ${pay}\n\n`;
+            msg += `📋 *PRODUCTOS:*\n`;
 
-            cart.forEach(item => {
-                msg += `▪️ ${item.qty}x ${item.name} ($${(item.price * item.qty).toLocaleString('es-AR')})\n`;
+            cart.forEach(i => {
+                msg += `▪️ ${i.qty}x ${i.name} ($${(i.price * i.qty).toLocaleString('es-AR')})\n`;
             });
 
-            msg += `═════════════════════════\n`;
-            msg += `*Subtotal:* $${subtotal.toLocaleString('es-AR')}\n`;
-            msg += `*Envío:* $${shippingCost.toLocaleString('es-AR')}\n`;
-            msg += `*TOTAL A PAGAR: $${total.toLocaleString('es-AR')}*`;
+            msg += `\n*Subtotal:* $${sub.toLocaleString('es-AR')}`;
+            msg += `\n*Envío:* $${shipCost.toLocaleString('es-AR')}`;
+            msg += `\n*TOTAL: $${tot.toLocaleString('es-AR')}*`;
 
             const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
         }
 
-        // Inicio
-        renderProducts(products);
+        renderItems(items);
     </script>
 </body>
 </html>
