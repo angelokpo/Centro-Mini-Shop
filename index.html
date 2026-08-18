@@ -107,19 +107,25 @@
             flex-shrink: 0;
         }
 
-        .logo-badge {
+        .logo-img-wrapper {
             background: #fff;
-            color: var(--rojo-brand);
             width: 48px;
             height: 48px;
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
             border: 2px solid var(--amarillo);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             flex-shrink: 0;
+            overflow: hidden;
+            padding: 2px;
+        }
+
+        .logo-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .logo-text h1 {
@@ -814,15 +820,13 @@
                 gap: 10px;
             }
 
-            /* Logo más grande sin título */
             .logo-box {
                 gap: 0;
             }
 
-            .logo-badge {
+            .logo-img-wrapper {
                 width: 44px;
                 height: 44px;
-                font-size: 1.45rem;
                 border-radius: 12px;
                 border-width: 2px;
             }
@@ -831,7 +835,6 @@
                 display: none;
             }
 
-            /* Barra de búsqueda extendida al máximo */
             .search-box {
                 display: block;
                 flex: 1;
@@ -849,7 +852,6 @@
                 font-size: 0.85rem;
             }
 
-            /* Carrito más grande y cómodo */
             .btn-cart-nav {
                 padding: 9px 14px;
                 gap: 6px;
@@ -867,7 +869,6 @@
                 border-radius: 10px;
             }
 
-            /* Slider: margen interno para no chocar flechas y textos */
             .carousel-container { 
                 height: 195px; 
             }
@@ -884,7 +885,6 @@
                 gap: 3px;
             }
 
-            /* Cartelitos (antojo dulce, 100% heladas) más chicos y sutiles */
             .slide-tag {
                 font-size: 0.65rem;
                 padding: 2px 8px;
@@ -908,7 +908,6 @@
                 line-height: 1.2;
             }
 
-            /* Flechitas más pequeñas y en los extremos */
             .slider-arrow {
                 width: 26px;
                 height: 26px;
@@ -947,8 +946,9 @@
     <header>
         <div class="nav-wrapper">
             <div class="logo-box" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                <div class="logo-badge">
-                    <i class="fa-solid fa-basket-shopping"></i>
+                <div class="logo-img-wrapper">
+                    <!-- Podés cambiar "logo.png" por la ruta de tu archivo de imagen local -->
+                    <img src="logo.png" alt="Centro Mini Shop Logo" onerror="this.onerror=null; this.src='https://i.ibb.co/vz444C9/centro-mini-shop.png';">
                 </div>
                 <div class="logo-text">
                     <h1 class="heading-font">CENTRO <span>MINI SHOP</span></h1>
@@ -1384,7 +1384,6 @@
             window.open(url, '_blank');
         }
 
-        // Inicio
         renderProducts(products);
     </script>
 </body>
