@@ -1067,7 +1067,7 @@
                     <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450" onchange="searchAddressOnMap()">
                 </div>
 
-                <!-- Mapa interactivo con las dos sucursales exactas -->
+                <!-- Mapa interactivo con las 3 sucursales exactas -->
                 <div class="form-group">
                     <label>Ubicación exacta de entrega (tocá el mapa o arrastrá el pin):</label>
                     <div id="map-container">
@@ -1119,7 +1119,7 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Coordenadas exactas proporcionadas por el usuario
+        // Coordenadas exactas de las 3 sucursales
         const SUCURSALES = [
             {
                 name: "Sucursal José Ingenieros 309",
@@ -1128,6 +1128,10 @@
             {
                 name: "Sucursal Av. Yrigoyen 1089",
                 coords: [-30.943441805815844, -61.56331390154242]
+            },
+            {
+                name: "Sucursal 3",
+                coords: [-30.945811325584664, -61.55958930820428]
             }
         ];
 
@@ -1215,7 +1219,7 @@
             return R * c;
         }
 
-        /* Determinar sucursal más cercana y calcular costo: $1000 base + $100 por cuadra */
+        /* Determinar la sucursal más cercana de las 3 y calcular costo: $1000 base + $100 por cuadra */
         function updateShippingByDistance() {
             let minDistance = Infinity;
 
@@ -1240,17 +1244,17 @@
             calcTotals();
         }
 
-        /* Inicializar Mapa Leaflet con las dos sucursales marcadas */
+        /* Inicializar Mapa Leaflet con las 3 sucursales marcadas */
         function initDeliveryMap() {
             if (mapInstance !== null) return;
 
-            mapInstance = L.map('map').setView([-30.9432, -61.5588], 15);
+            mapInstance = L.map('map').setView([-30.9440, -61.5590], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 19
             }).addTo(mapInstance);
 
-            // Marcadores para las 2 sucursales
+            // Marcadores para las 3 sucursales
             SUCURSALES.forEach(sucursal => {
                 L.circleMarker(sucursal.coords, {
                     color: '#1453b8',
