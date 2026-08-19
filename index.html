@@ -7,6 +7,8 @@
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Leaflet Maps CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <style>
         :root {
             --azul-brand: #1453b8;
@@ -333,7 +335,7 @@
             border-radius: 8px;
         }
 
-        /* 4. Carteles de Beneficios */
+        /* 4. Beneficios */
         .info-cards-section {
             max-width: 1250px;
             margin: 15px auto 0;
@@ -370,7 +372,7 @@
             color: var(--texto-mutado);
         }
 
-        /* 5. Barra de Categorías */
+        /* 5. Categorías */
         .categories-container {
             max-width: 1250px;
             margin: 25px auto 10px;
@@ -561,9 +563,9 @@
         .cart-drawer {
             position: fixed;
             top: 0;
-            right: -440px;
+            right: -480px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             height: 100%;
             background: #fff;
             z-index: 999;
@@ -651,6 +653,7 @@
 
         .qty-label { font-size: 0.85rem; font-weight: 800; min-width: 14px; text-align: center; }
 
+        /* Checkout y Mapa Interactivo */
         .checkout-box {
             background: var(--celeste-bg);
             border-radius: 12px;
@@ -686,6 +689,31 @@
             font-size: 0.85rem;
             background: #fff;
             outline: none;
+        }
+
+        /* Contenedor del Mapa */
+        #map-container {
+            margin-top: 8px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1.5px solid #b6d4fe;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        #map {
+            width: 100%;
+            height: 180px;
+            z-index: 1;
+        }
+
+        .map-help-text {
+            font-size: 0.7rem;
+            color: var(--azul-dark);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
         }
 
         .cart-drawer-footer {
@@ -1006,7 +1034,7 @@
         <div class="badge-float" id="floatCount">0</div>
     </button>
 
-    <!-- 8. Drawer Carrito Lateral -->
+    <!-- 8. Drawer Carrito Lateral con Mapa -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-drawer-header">
@@ -1021,8 +1049,20 @@
                 <h4 class="heading-font"><i class="fa-solid fa-location-dot"></i> Datos de Entrega</h4>
 
                 <div class="form-group">
-                    <label>Tu Dirección en Sunchales:</label>
-                    <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450 o Barrio">
+                    <label>Tu Dirección y Altura en Sunchales:</label>
+                    <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450, Barrio Moreno" onchange="searchAddressOnMap()">
+                </div>
+
+                <!-- Mapa para marcar la ubicación exacta -->
+                <div class="form-group">
+                    <label>Ubicación exacta de entrega (tocá el mapa para ajustar el punto):</label>
+                    <div id="map-container">
+                        <div id="map"></div>
+                    </div>
+                    <div class="map-help-text">
+                        <i class="fa-solid fa-map-pin" style="color: var(--rojo-brand);"></i>
+                        <span id="coordsLabel">Marcá tu casa tocando el mapa de Sunchales</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -1063,11 +1103,19 @@
         </div>
     </div>
 
-    <!-- Script de Lógica, Carrusel y Carrito -->
+    <!-- Leaflet Maps JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Script de Lógica, Mapa, Carrusel y Carrito -->
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Rutas directas coincidentes con tu repositorio
+        // Coordenadas iniciales: Plaza Libertad (Centro de Sunchales)
+        const SUNCHALES_COORDS = [-30.9442, -61.5627];
+        let currentMarkerCoords = SUNCHALES_COORDS;
+        let mapInstance = null;
+        let mapMarker = null;
+
         const products = [
             {
                 id: 1,
@@ -1117,17 +1165,67 @@
                 oldPrice: null,
                 img: "coca.png"
             },
-      {
-    id: 7,
-    name: "Doritos Mega Queso 140g",
-    cat: "snacks",
-    price: 3900,
-    oldPrice: 4400,
-    img: "doritos.png"
-}
+            {
+                id: 7,
+                name: "Doritos Mega Queso 140g",
+                cat: "snacks",
+                price: 3900,
+                oldPrice: 4400,
+                img: "doritos.jpg"
+            }
         ];
 
         let cart = [];
+
+        /* Inicializar Mapa Interactivo */
+        function initDeliveryMap() {
+            if (mapInstance !== null) return;
+
+            mapInstance = L.map('map').setView(SUNCHALES_COORDS, 14);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(mapInstance);
+
+            // Marcador movible
+            mapMarker = L.marker(SUNCHALES_COORDS, { draggable: true }).addTo(mapInstance);
+
+            mapMarker.on('dragend', function (e) {
+                const position = mapMarker.getLatLng();
+                currentMarkerCoords = [position.lat, position.lng];
+                document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${position.lat.toFixed(4)}, Lng ${position.lng.toFixed(4)}`;
+            });
+
+            // Permitir tocar en cualquier punto del mapa para mover el marcador
+            mapInstance.on('click', function(e) {
+                mapMarker.setLatLng(e.latlng);
+                currentMarkerCoords = [e.latlng.lat, e.latlng.lng];
+                document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${e.latlng.lat.toFixed(4)}, Lng ${e.latlng.lng.toFixed(4)}`;
+            });
+        }
+
+        // Buscar automáticamente en el mapa cuando escriben la dirección
+        async function searchAddressOnMap() {
+            const query = document.getElementById('custAddress').value.trim();
+            if (!query) return;
+
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query + ', Sunchales, Santa Fe, Argentina')}`);
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lon = parseFloat(data[0].lon);
+                    currentMarkerCoords = [lat, lon];
+                    if (mapInstance && mapMarker) {
+                        mapInstance.setView([lat, lon], 16);
+                        mapMarker.setLatLng([lat, lon]);
+                        document.getElementById('coordsLabel').innerText = `Ubicación encontrada: ${data[0].display_name.split(',')[0]}`;
+                    }
+                }
+            } catch (err) {
+                console.log("Geocodificación no disponible");
+            }
+        }
 
         /* Slider Automático */
         let currentSlide = 0;
@@ -1211,8 +1309,18 @@
 
         /* Lógica del Carrito */
         function toggleCartDrawer() {
-            document.getElementById('cartDrawer').classList.toggle('show');
-            document.getElementById('cartOverlay').classList.toggle('show');
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+            drawer.classList.toggle('show');
+            overlay.classList.toggle('show');
+
+            // Ajustar renderizado del mapa cuando se abre el drawer
+            if (drawer.classList.contains('show')) {
+                setTimeout(() => {
+                    initDeliveryMap();
+                    if (mapInstance) mapInstance.invalidateSize();
+                }, 300);
+            }
         }
 
         function addToCart(id) {
@@ -1280,6 +1388,7 @@
             document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
         }
 
+        /* Mensaje de WhatsApp Limpio y Sin Errores de Codificación */
         function sendToWhatsApp() {
             if (cart.length === 0) {
                 alert("Tu carrito está vacío. Sumá artículos para realizar el pedido.");
@@ -1288,7 +1397,7 @@
 
             const address = document.getElementById('custAddress').value.trim();
             if (!address) {
-                alert("Por favor completá tu dirección en Sunchales.");
+                alert("Por favor completá tu dirección exacta en Sunchales.");
                 document.getElementById('custAddress').focus();
                 return;
             }
@@ -1300,24 +1409,28 @@
             const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
             const total = subtotal + shippingCost;
 
-            let msg = `🛒 *PEDIDO ONLINE - CENTRO MINI SHOP*\n`;
-            msg += `═════════════════════════\n`;
-            msg += `📍 *Dirección:* ${address}\n`;
-            msg += `🛵 *Zona:* ${zoneText}\n`;
-            msg += `💳 *Método de Pago:* ${payment}\n`;
-            msg += `═════════════════════════\n`;
-            msg += `📋 *PRODUCTOS SELECCIONADOS:*\n`;
+            // Link directo a Google Maps con el pin exacto
+            const googleMapsUrl = `https://www.google.com/maps?q=${currentMarkerCoords[0]},${currentMarkerCoords[1]}`;
+
+            let msg = `*PEDIDO ONLINE - CENTRO MINI SHOP*\n`;
+            msg += `------------------------------------\n`;
+            msg += `*Dirección:* ${address}\n`;
+            msg += `*Ubicación GPS en Mapa:* ${googleMapsUrl}\n`;
+            msg += `*Zona:* ${zoneText}\n`;
+            msg += `*Método de Pago:* ${payment}\n`;
+            msg += `------------------------------------\n`;
+            msg += `*PRODUCTOS SELECCIONADOS:*\n`;
 
             cart.forEach(item => {
-                msg += `▪️ ${item.qty}x ${item.name} ($${(item.price * item.qty).toLocaleString('es-AR')})\n`;
+                msg += `- ${item.qty}x ${item.name} ($${(item.price * item.qty).toLocaleString('es-AR')})\n`;
             });
 
-            msg += `═════════════════════════\n`;
+            msg += `------------------------------------\n`;
             msg += `*Subtotal:* $${subtotal.toLocaleString('es-AR')}\n`;
             msg += `*Envío:* $${shippingCost.toLocaleString('es-AR')}\n`;
             msg += `*TOTAL A PAGAR: $${total.toLocaleString('es-AR')}*`;
 
-            const url = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
+            const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUM}&text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
         }
 
