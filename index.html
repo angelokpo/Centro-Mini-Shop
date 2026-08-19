@@ -725,8 +725,8 @@
             font-size: 0.75rem;
             color: var(--azul-dark);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 3px;
             font-weight: 700;
         }
 
@@ -1007,7 +1007,7 @@
             <i class="fa-solid fa-motorcycle"></i>
             <div>
                 <h4>Delivery a Domicilio</h4>
-                <p>Envíos calculados por distancia en Sunchales.</p>
+                <p>Envíos calculados desde la sucursal más cercana.</p>
             </div>
         </div>
         <div class="info-card" style="border-left-color: var(--rojo-brand);">
@@ -1067,7 +1067,7 @@
                     <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450" onchange="searchAddressOnMap()">
                 </div>
 
-                <!-- Mapa interactivo de Sunchales -->
+                <!-- Mapa interactivo con las dos sucursales -->
                 <div class="form-group">
                     <label>Ubicación exacta de entrega (tocá el mapa o arrastrá el pin):</label>
                     <div id="map-container">
@@ -1075,11 +1075,11 @@
                     </div>
                     <div class="map-help-text">
                         <i class="fa-solid fa-map-pin" style="color: var(--rojo-brand);"></i>
-                        <span id="coordsLabel">Plaza Libertad fijada como punto de partida</span>
+                        <span id="coordsLabel">Arrastrá el pin hasta tu casa</span>
                     </div>
                     <div class="delivery-breakdown">
-                        <span><i class="fa-solid fa-route"></i> Distancia desde Plaza Libertad:</span>
-                        <span id="distanceSummary">0 cuadras ($1.000 base)</span>
+                        <span id="nearestStoreLabel"><i class="fa-solid fa-store"></i> Sucursal asignada: Calculando...</span>
+                        <span id="distanceSummary"><i class="fa-solid fa-route"></i> Distancia: 0 cuadras ($1.000 base)</span>
                     </div>
                 </div>
 
@@ -1119,12 +1119,22 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Coordenadas fijas: Plaza Libertad (Centro de Sunchales)
-        const PLAZA_LIBERTAD_COORDS = [-30.94509, -61.56081];
-        let currentMarkerCoords = [-30.94509, -61.56081];
+        // Coordenadas exactas de las dos sucursales en Sunchales
+        const SUCURSALES = [
+            {
+                name: "Sucursal Av. Yrigoyen 1089",
+                coords: [-30.93880, -61.56580]
+            },
+            {
+                name: "Sucursal José Ingenieros 309",
+                coords: [-30.94820, -61.55830]
+            }
+        ];
+
+        let currentMarkerCoords = SUCURSALES[0].coords;
+        let selectedStore = SUCURSALES[0];
         let mapInstance = null;
         let mapMarker = null;
-        let plazaMarker = null;
         let calculatedBlocks = 0;
         let shippingCost = 1000;
 
@@ -1189,9 +1199,9 @@
 
         let cart = [];
 
-        /* Fórmula Haversine para calcular distancia exacta en metros */
+        /* Fórmula Haversine para calcular distancia en metros */
         function getDistanceMeters(lat1, lon1, lat2, lon2) {
-            const R = 6371e3; // Radio de la Tierra en metros
+            const R = 6371e3;
             const phi1 = lat1 * Math.PI / 180;
             const phi2 = lat2 * Math.PI / 180;
             const deltaPhi = (lat2 - lat1) * Math.PI / 180;
@@ -1205,45 +1215,54 @@
             return R * c;
         }
 
-        /* Actualizar costo de envío: $1000 base + $200 por cuadra (1 cuadra = 100m) */
+        /* Determinar sucursal más cercana y calcular costo: $1000 base + $200 por cuadra */
         function updateShippingByDistance() {
-            const meters = getDistanceMeters(
-                PLAZA_LIBERTAD_COORDS[0], PLAZA_LIBERTAD_COORDS[1],
-                currentMarkerCoords[0], currentMarkerCoords[1]
-            );
+            let minDistance = Infinity;
+
+            SUCURSALES.forEach(sucursal => {
+                const dist = getDistanceMeters(
+                    sucursal.coords[0], sucursal.coords[1],
+                    currentMarkerCoords[0], currentMarkerCoords[1]
+                );
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    selectedStore = sucursal;
+                }
+            });
 
             // 1 cuadra estándar = 100 metros
-            calculatedBlocks = Math.round(meters / 100);
+            calculatedBlocks = Math.round(minDistance / 100);
             shippingCost = 1000 + (calculatedBlocks * 200);
 
-            const distanceText = calculatedBlocks === 0 
-                ? `0 cuadras ($1.000 base)` 
-                : `${calculatedBlocks} cuadras (~${(meters / 1000).toFixed(1)} km)`;
+            document.getElementById('nearestStoreLabel').innerHTML = `<i class="fa-solid fa-store"></i> Sale desde: <b>${selectedStore.name}</b>`;
+            document.getElementById('distanceSummary').innerHTML = `<i class="fa-solid fa-route"></i> Distancia: <b>${calculatedBlocks} cuadras</b> ($1.000 base + ${calculatedBlocks}x$200)`;
 
-            document.getElementById('distanceSummary').innerText = distanceText;
             calcTotals();
         }
 
-        /* Inicializar Mapa Leaflet */
+        /* Inicializar Mapa Leaflet con las dos sucursales marcadas */
         function initDeliveryMap() {
             if (mapInstance !== null) return;
 
-            mapInstance = L.map('map').setView(PLAZA_LIBERTAD_COORDS, 14);
+            mapInstance = L.map('map').setView([-30.9435, -61.5620], 14);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 19
             }).addTo(mapInstance);
 
-            // Marcador de origen (Plaza Libertad)
-            plazaMarker = L.circleMarker(PLAZA_LIBERTAD_COORDS, {
-                color: '#1453b8',
-                fillColor: '#ffc700',
-                fillOpacity: 0.9,
-                radius: 8
-            }).addTo(mapInstance).bindPopup("Plaza Libertad (Punto 0)");
+            // Marcadores para las 2 sucursales
+            SUCURSALES.forEach(sucursal => {
+                L.circleMarker(sucursal.coords, {
+                    color: '#1453b8',
+                    fillColor: '#ffc700',
+                    fillOpacity: 0.95,
+                    radius: 8,
+                    weight: 3
+                }).addTo(mapInstance).bindPopup(`<b>${sucursal.name}</b>`);
+            });
 
-            // Marcador de destino (arrastrable)
-            mapMarker = L.marker(PLAZA_LIBERTAD_COORDS, { draggable: true }).addTo(mapInstance);
+            // Marcador de destino del usuario (arrastrable)
+            mapMarker = L.marker(currentMarkerCoords, { draggable: true }).addTo(mapInstance);
 
             mapMarker.on('dragend', function (e) {
                 const position = mapMarker.getLatLng();
@@ -1282,7 +1301,7 @@
                     }
                 }
             } catch (err) {
-                console.log("Servicio de búsqueda no disponible");
+                console.log("Búsqueda no disponible");
             }
         }
 
@@ -1468,9 +1487,10 @@
 
             let msg = `*PEDIDO ONLINE - CENTRO MINI SHOP*\n`;
             msg += `------------------------------------\n`;
-            msg += `*Dirección:* ${address}\n`;
+            msg += `*Dirección de Entrega:* ${address}\n`;
             msg += `*Ubicación GPS:* ${googleMapsUrl}\n`;
-            msg += `*Distancia desde Plaza Libertad:* ${calculatedBlocks} cuadras ($1.000 base + ${calculatedBlocks}x$200)\n`;
+            msg += `*Sucursal Asignada:* ${selectedStore.name}\n`;
+            msg += `*Distancia:* ${calculatedBlocks} cuadras ($1.000 base + ${calculatedBlocks}x$200)\n`;
             msg += `*Método de Pago:* ${payment}\n`;
             msg += `------------------------------------\n`;
             msg += `*PRODUCTOS SELECCIONADOS:*\n`;
