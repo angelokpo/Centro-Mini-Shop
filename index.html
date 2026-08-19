@@ -1119,7 +1119,7 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Coordenadas exactas de las 3 sucursales
+        // Coordenadas exactas de las 3 sucursales en Sunchales
         const SUCURSALES = [
             {
                 name: "Sucursal José Ingenieros 309",
@@ -1130,7 +1130,7 @@
                 coords: [-30.943441805815844, -61.56331390154242]
             },
             {
-                name: "Sucursal 3",
+                name: "Sucursal Centro",
                 coords: [-30.945811325584664, -61.55958930820428]
             }
         ];
@@ -1469,7 +1469,7 @@
             document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
         }
 
-        /* Mensaje de WhatsApp Limpio */
+        /* Mensaje de WhatsApp Limpio, Directo y Sin Enlaces Innecesarios */
         function sendToWhatsApp() {
             if (cart.length === 0) {
                 alert("Tu carrito está vacío. Sumá artículos para realizar el pedido.");
@@ -1487,26 +1487,22 @@
             const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
             const total = subtotal + shippingCost;
 
-            const googleMapsUrl = `https://www.google.com/maps?q=${currentMarkerCoords[0]},${currentMarkerCoords[1]}`;
+            let msg = `NUEVO PEDIDO - CENTRO MINI SHOP\n\n`;
+            msg += `DATOS DE ENTREGA\n`;
+            msg += `• Dirección: ${address}\n`;
+            msg += `• Sale desde: ${selectedStore.name}\n`;
+            msg += `• Distancia: ${calculatedBlocks} cuadras\n`;
+            msg += `• Pago: ${payment}\n\n`;
 
-            let msg = `*PEDIDO ONLINE - CENTRO MINI SHOP*\n`;
-            msg += `------------------------------------\n`;
-            msg += `*Dirección de Entrega:* ${address}\n`;
-            msg += `*Ubicación GPS:* ${googleMapsUrl}\n`;
-            msg += `*Sucursal Asignada:* ${selectedStore.name}\n`;
-            msg += `*Distancia:* ${calculatedBlocks} cuadras ($1.000 base + ${calculatedBlocks}x$100)\n`;
-            msg += `*Método de Pago:* ${payment}\n`;
-            msg += `------------------------------------\n`;
-            msg += `*PRODUCTOS SELECCIONADOS:*\n`;
-
+            msg += `DETALLE DEL PEDIDO\n`;
             cart.forEach(item => {
-                msg += `- ${item.qty}x ${item.name} ($${(item.price * item.qty).toLocaleString('es-AR')})\n`;
+                msg += `• ${item.qty}x ${item.name} - $${(item.price * item.qty).toLocaleString('es-AR')}\n`;
             });
 
-            msg += `------------------------------------\n`;
-            msg += `*Subtotal:* $${subtotal.toLocaleString('es-AR')}\n`;
-            msg += `*Envío:* $${shippingCost.toLocaleString('es-AR')}\n`;
-            msg += `*TOTAL A PAGAR: $${total.toLocaleString('es-AR')}*`;
+            msg += `\nRESUMEN\n`;
+            msg += `• Productos: $${subtotal.toLocaleString('es-AR')}\n`;
+            msg += `• Envío: $${shippingCost.toLocaleString('es-AR')}\n`;
+            msg += `• TOTAL: $${total.toLocaleString('es-AR')}`;
 
             const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUM}&text=${encodeURIComponent(msg)}`;
             window.open(url, '_blank');
