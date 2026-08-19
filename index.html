@@ -1215,7 +1215,7 @@
             return R * c;
         }
 
-        /* Determinar sucursal más cercana y calcular costo: $1000 base + $200 por cuadra */
+        /* Determinar sucursal más cercana y calcular costo: $1000 base + $100 por cuadra */
         function updateShippingByDistance() {
             let minDistance = Infinity;
 
@@ -1232,10 +1232,10 @@
 
             // 1 cuadra estándar = 100 metros
             calculatedBlocks = Math.round(minDistance / 100);
-            shippingCost = 1000 + (calculatedBlocks * 200);
+            shippingCost = 1000 + (calculatedBlocks * 100);
 
             document.getElementById('nearestStoreLabel').innerHTML = `<i class="fa-solid fa-store"></i> Sale desde: <b>${selectedStore.name}</b>`;
-            document.getElementById('distanceSummary').innerHTML = `<i class="fa-solid fa-route"></i> Distancia: <b>${calculatedBlocks} cuadras</b> ($1.000 base + ${calculatedBlocks}x$200)`;
+            document.getElementById('distanceSummary').innerHTML = `<i class="fa-solid fa-route"></i> Distancia: <b>${calculatedBlocks} cuadras</b> ($1.000 base + ${calculatedBlocks}x$100)`;
 
             calcTotals();
         }
@@ -1490,7 +1490,7 @@
             msg += `*Dirección de Entrega:* ${address}\n`;
             msg += `*Ubicación GPS:* ${googleMapsUrl}\n`;
             msg += `*Sucursal Asignada:* ${selectedStore.name}\n`;
-            msg += `*Distancia:* ${calculatedBlocks} cuadras ($1.000 base + ${calculatedBlocks}x$200)\n`;
+            msg += `*Distancia:* ${calculatedBlocks} cuadras ($1.000 base + ${calculatedBlocks}x$100)\n`;
             msg += `*Método de Pago:* ${payment}\n`;
             msg += `------------------------------------\n`;
             msg += `*PRODUCTOS SELECCIONADOS:*\n`;
