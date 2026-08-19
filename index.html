@@ -1067,7 +1067,7 @@
                     <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450" onchange="searchAddressOnMap()">
                 </div>
 
-                <!-- Mapa interactivo con las dos sucursales -->
+                <!-- Mapa interactivo con las dos sucursales exactas -->
                 <div class="form-group">
                     <label>Ubicación exacta de entrega (tocá el mapa o arrastrá el pin):</label>
                     <div id="map-container">
@@ -1119,15 +1119,15 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Coordenadas exactas de las dos sucursales en Sunchales
+        // Coordenadas exactas proporcionadas por el usuario
         const SUCURSALES = [
             {
-                name: "Sucursal Av. Yrigoyen 1089",
-                coords: [-30.93880, -61.56580]
+                name: "Sucursal José Ingenieros 309",
+                coords: [-30.9430271443706, -61.55434244692637]
             },
             {
-                name: "Sucursal José Ingenieros 309",
-                coords: [-30.94820, -61.55830]
+                name: "Sucursal Av. Yrigoyen 1089",
+                coords: [-30.943441805815844, -61.56331390154242]
             }
         ];
 
@@ -1244,7 +1244,7 @@
         function initDeliveryMap() {
             if (mapInstance !== null) return;
 
-            mapInstance = L.map('map').setView([-30.9435, -61.5620], 14);
+            mapInstance = L.map('map').setView([-30.9432, -61.5588], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 19
