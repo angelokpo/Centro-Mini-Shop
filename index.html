@@ -707,13 +707,27 @@
         }
 
         .map-help-text {
-            font-size: 0.7rem;
+            font-size: 0.72rem;
             color: var(--azul-dark);
-            margin-top: 4px;
+            margin-top: 6px;
             display: flex;
             align-items: center;
             gap: 5px;
             font-weight: 600;
+        }
+
+        .delivery-breakdown {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            border: 1px dashed #b6d4fe;
+            font-size: 0.75rem;
+            color: var(--azul-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
         }
 
         .cart-drawer-footer {
@@ -993,7 +1007,7 @@
             <i class="fa-solid fa-motorcycle"></i>
             <div>
                 <h4>Delivery a Domicilio</h4>
-                <p>Envíos a todos los barrios de Sunchales.</p>
+                <p>Envíos calculados por distancia en Sunchales.</p>
             </div>
         </div>
         <div class="info-card" style="border-left-color: var(--rojo-brand);">
@@ -1034,7 +1048,7 @@
         <div class="badge-float" id="floatCount">0</div>
     </button>
 
-    <!-- 8. Drawer Carrito Lateral con Mapa -->
+    <!-- 8. Drawer Carrito Lateral con Mapa Dinámico -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-drawer-header">
@@ -1050,28 +1064,23 @@
 
                 <div class="form-group">
                     <label>Tu Dirección y Altura en Sunchales:</label>
-                    <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450, Barrio Moreno" onchange="searchAddressOnMap()">
+                    <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450" onchange="searchAddressOnMap()">
                 </div>
 
-                <!-- Mapa para marcar la ubicación exacta -->
+                <!-- Mapa interactivo de Sunchales -->
                 <div class="form-group">
-                    <label>Ubicación exacta de entrega (tocá el mapa para ajustar el punto):</label>
+                    <label>Ubicación exacta de entrega (tocá el mapa o arrastrá el pin):</label>
                     <div id="map-container">
                         <div id="map"></div>
                     </div>
                     <div class="map-help-text">
                         <i class="fa-solid fa-map-pin" style="color: var(--rojo-brand);"></i>
-                        <span id="coordsLabel">Marcá tu casa tocando el mapa de Sunchales</span>
+                        <span id="coordsLabel">Plaza Libertad fijada como punto de partida</span>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Zona de Envío:</label>
-                    <select id="custZone" onchange="calcTotals()">
-                        <option value="600">Zona Centro / Cercanías ($600)</option>
-                        <option value="900">Barrio Cooperativo / Moreno / Colón ($900)</option>
-                        <option value="1400">Loteos Periféricos / Zona Rural ($1.400)</option>
-                    </select>
+                    <div class="delivery-breakdown">
+                        <span><i class="fa-solid fa-route"></i> Distancia desde Plaza Libertad:</span>
+                        <span id="distanceSummary">0 cuadras ($1.000 base)</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -1091,11 +1100,11 @@
             </div>
             <div class="calc-row">
                 <span>Costo de envío:</span>
-                <span id="shippingText">$600</span>
+                <span id="shippingText">$1.000</span>
             </div>
             <div class="calc-total">
                 <span>TOTAL:</span>
-                <span id="totalText">$600</span>
+                <span id="totalText">$1.000</span>
             </div>
             <button class="btn-send-whatsapp heading-font" onclick="sendToWhatsApp()">
                 <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Pedir por WhatsApp
@@ -1110,11 +1119,14 @@
     <script>
         const WHATSAPP_NUM = "5493493443991";
 
-        // Coordenadas iniciales: Plaza Libertad (Centro de Sunchales)
-        const SUNCHALES_COORDS = [-30.9442, -61.5627];
-        let currentMarkerCoords = SUNCHALES_COORDS;
+        // Coordenadas fijas: Plaza Libertad (Centro de Sunchales)
+        const PLAZA_LIBERTAD_COORDS = [-30.94509, -61.56081];
+        let currentMarkerCoords = [-30.94509, -61.56081];
         let mapInstance = null;
         let mapMarker = null;
+        let plazaMarker = null;
+        let calculatedBlocks = 0;
+        let shippingCost = 1000;
 
         const products = [
             {
@@ -1171,40 +1183,86 @@
                 cat: "snacks",
                 price: 3900,
                 oldPrice: 4400,
-                img: "doritos.jpg"
+                img: "doritos.png"
             }
         ];
 
         let cart = [];
 
-        /* Inicializar Mapa Interactivo */
+        /* Fórmula Haversine para calcular distancia exacta en metros */
+        function getDistanceMeters(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Radio de la Tierra en metros
+            const phi1 = lat1 * Math.PI / 180;
+            const phi2 = lat2 * Math.PI / 180;
+            const deltaPhi = (lat2 - lat1) * Math.PI / 180;
+            const deltaLambda = (lon2 - lon1) * Math.PI / 180;
+
+            const a = Math.sin(deltaPhi / 2) * Math.sin(deltaPhi / 2) +
+                      Math.cos(phi1) * Math.cos(phi2) *
+                      Math.sin(deltaLambda / 2) * Math.sin(deltaLambda / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+            return R * c;
+        }
+
+        /* Actualizar costo de envío: $1000 base + $200 por cuadra (1 cuadra = 100m) */
+        function updateShippingByDistance() {
+            const meters = getDistanceMeters(
+                PLAZA_LIBERTAD_COORDS[0], PLAZA_LIBERTAD_COORDS[1],
+                currentMarkerCoords[0], currentMarkerCoords[1]
+            );
+
+            // 1 cuadra estándar = 100 metros
+            calculatedBlocks = Math.round(meters / 100);
+            shippingCost = 1000 + (calculatedBlocks * 200);
+
+            const distanceText = calculatedBlocks === 0 
+                ? `0 cuadras ($1.000 base)` 
+                : `${calculatedBlocks} cuadras (~${(meters / 1000).toFixed(1)} km)`;
+
+            document.getElementById('distanceSummary').innerText = distanceText;
+            calcTotals();
+        }
+
+        /* Inicializar Mapa Leaflet */
         function initDeliveryMap() {
             if (mapInstance !== null) return;
 
-            mapInstance = L.map('map').setView(SUNCHALES_COORDS, 14);
+            mapInstance = L.map('map').setView(PLAZA_LIBERTAD_COORDS, 14);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
                 maxZoom: 19
             }).addTo(mapInstance);
 
-            // Marcador movible
-            mapMarker = L.marker(SUNCHALES_COORDS, { draggable: true }).addTo(mapInstance);
+            // Marcador de origen (Plaza Libertad)
+            plazaMarker = L.circleMarker(PLAZA_LIBERTAD_COORDS, {
+                color: '#1453b8',
+                fillColor: '#ffc700',
+                fillOpacity: 0.9,
+                radius: 8
+            }).addTo(mapInstance).bindPopup("Plaza Libertad (Punto 0)");
+
+            // Marcador de destino (arrastrable)
+            mapMarker = L.marker(PLAZA_LIBERTAD_COORDS, { draggable: true }).addTo(mapInstance);
 
             mapMarker.on('dragend', function (e) {
                 const position = mapMarker.getLatLng();
                 currentMarkerCoords = [position.lat, position.lng];
                 document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${position.lat.toFixed(4)}, Lng ${position.lng.toFixed(4)}`;
+                updateShippingByDistance();
             });
 
-            // Permitir tocar en cualquier punto del mapa para mover el marcador
             mapInstance.on('click', function(e) {
                 mapMarker.setLatLng(e.latlng);
                 currentMarkerCoords = [e.latlng.lat, e.latlng.lng];
                 document.getElementById('coordsLabel').innerText = `Punto fijado: Lat ${e.latlng.lat.toFixed(4)}, Lng ${e.latlng.lng.toFixed(4)}`;
+                updateShippingByDistance();
             });
+
+            updateShippingByDistance();
         }
 
-        // Buscar automáticamente en el mapa cuando escriben la dirección
+        /* Buscar dirección escrita en OpenStreetMap */
         async function searchAddressOnMap() {
             const query = document.getElementById('custAddress').value.trim();
             if (!query) return;
@@ -1219,11 +1277,12 @@
                     if (mapInstance && mapMarker) {
                         mapInstance.setView([lat, lon], 16);
                         mapMarker.setLatLng([lat, lon]);
-                        document.getElementById('coordsLabel').innerText = `Ubicación encontrada: ${data[0].display_name.split(',')[0]}`;
+                        document.getElementById('coordsLabel').innerText = `Ubicación: ${data[0].display_name.split(',')[0]}`;
+                        updateShippingByDistance();
                     }
                 }
             } catch (err) {
-                console.log("Geocodificación no disponible");
+                console.log("Servicio de búsqueda no disponible");
             }
         }
 
@@ -1314,7 +1373,6 @@
             drawer.classList.toggle('show');
             overlay.classList.toggle('show');
 
-            // Ajustar renderizado del mapa cuando se abre el drawer
             if (drawer.classList.contains('show')) {
                 setTimeout(() => {
                     initDeliveryMap();
@@ -1380,15 +1438,15 @@
 
         function calcTotals() {
             const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
-            const shipping = cart.length > 0 ? parseInt(document.getElementById('custZone').value) : 0;
-            const total = subtotal + shipping;
+            const finalShipping = cart.length > 0 ? shippingCost : 0;
+            const total = subtotal + finalShipping;
 
             document.getElementById('subtotalText').innerText = `$${subtotal.toLocaleString('es-AR')}`;
-            document.getElementById('shippingText').innerText = `$${shipping.toLocaleString('es-AR')}`;
+            document.getElementById('shippingText').innerText = `$${finalShipping.toLocaleString('es-AR')}`;
             document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
         }
 
-        /* Mensaje de WhatsApp Limpio y Sin Errores de Codificación */
+        /* Mensaje de WhatsApp Limpio */
         function sendToWhatsApp() {
             if (cart.length === 0) {
                 alert("Tu carrito está vacío. Sumá artículos para realizar el pedido.");
@@ -1402,21 +1460,17 @@
                 return;
             }
 
-            const zoneElem = document.getElementById('custZone');
-            const zoneText = zoneElem.options[zoneElem.selectedIndex].text;
-            const shippingCost = parseInt(zoneElem.value);
             const payment = document.getElementById('custPayment').value;
             const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
             const total = subtotal + shippingCost;
 
-            // Link directo a Google Maps con el pin exacto
             const googleMapsUrl = `https://www.google.com/maps?q=${currentMarkerCoords[0]},${currentMarkerCoords[1]}`;
 
             let msg = `*PEDIDO ONLINE - CENTRO MINI SHOP*\n`;
             msg += `------------------------------------\n`;
             msg += `*Dirección:* ${address}\n`;
-            msg += `*Ubicación GPS en Mapa:* ${googleMapsUrl}\n`;
-            msg += `*Zona:* ${zoneText}\n`;
+            msg += `*Ubicación GPS:* ${googleMapsUrl}\n`;
+            msg += `*Distancia desde Plaza Libertad:* ${calculatedBlocks} cuadras ($1.000 base + ${calculatedBlocks}x$200)\n`;
             msg += `*Método de Pago:* ${payment}\n`;
             msg += `------------------------------------\n`;
             msg += `*PRODUCTOS SELECCIONADOS:*\n`;
