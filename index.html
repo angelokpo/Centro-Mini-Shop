@@ -1469,7 +1469,7 @@
             document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
         }
 
-        /* Mensaje de WhatsApp Limpio, Directo y Sin Enlaces Innecesarios */
+        /* Mensaje de WhatsApp Limpio y Estructurado con Link a Google Maps */
         function sendToWhatsApp() {
             if (cart.length === 0) {
                 alert("Tu carrito está vacío. Sumá artículos para realizar el pedido.");
@@ -1486,10 +1486,12 @@
             const payment = document.getElementById('custPayment').value;
             const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
             const total = subtotal + shippingCost;
+            const googleMapsUrl = `https://www.google.com/maps?q=${currentMarkerCoords[0]},${currentMarkerCoords[1]}`;
 
             let msg = `NUEVO PEDIDO - CENTRO MINI SHOP\n\n`;
             msg += `DATOS DE ENTREGA\n`;
             msg += `• Dirección: ${address}\n`;
+            msg += `• Ubicación GPS: ${googleMapsUrl}\n`;
             msg += `• Sale desde: ${selectedStore.name}\n`;
             msg += `• Distancia: ${calculatedBlocks} cuadras\n`;
             msg += `• Pago: ${payment}\n\n`;
