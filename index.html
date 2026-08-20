@@ -712,7 +712,7 @@
             margin-bottom: 4px;
         }
 
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 9px 12px;
             border: 1.5px solid #b6d4fe;
@@ -720,6 +720,12 @@
             font-size: 0.85rem;
             background: #fff;
             outline: none;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
         }
 
         /* Contenedor del Mapa */
@@ -1117,11 +1123,16 @@
                     </button>
                 </div>
 
-                <!-- Bloque Delivery con Mapa -->
+                <!-- Bloque Delivery con Mapa y Descripción -->
                 <div id="deliverySection">
                     <div class="form-group">
                         <label>Tu Dirección y Altura en Sunchales:</label>
                         <input type="text" id="custAddress" placeholder="Ej: Av. Yrigoyen 450" onchange="searchAddressOnMap()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detalles / Descripción del Domicilio (opcional):</label>
+                        <textarea id="custDetails" placeholder="Ej: Casa con rejas negras, portón blanco, entre calles Moreno y Colón. Tocar timbre 2B."></textarea>
                     </div>
 
                     <div class="form-group">
@@ -1565,7 +1576,7 @@
             document.getElementById('totalText').innerText = `$${total.toLocaleString('es-AR')}`;
         }
 
-        /* Mensaje de WhatsApp Limpio y Estructurado */
+        /* Mensaje de WhatsApp Limpio y Estructurado con Link y Descripción */
         function sendToWhatsApp() {
             if (cart.length === 0) {
                 alert("Tu carrito está vacío. Sumá artículos para realizar el pedido.");
@@ -1585,11 +1596,15 @@
                     return;
                 }
 
+                const details = document.getElementById('custDetails').value.trim();
                 finalShipping = shippingCost;
                 const googleMapsUrl = `https://www.google.com/maps?q=${currentMarkerCoords[0]},${currentMarkerCoords[1]}`;
 
                 msg += `MODALIDAD: DELIVERY A DOMICILIO\n`;
                 msg += `• Dirección: ${address}\n`;
+                if (details) {
+                    msg += `• Descripción/Detalles: ${details}\n`;
+                }
                 msg += `• Ubicación GPS: ${googleMapsUrl}\n`;
                 msg += `• Sale desde: ${selectedStore.name}\n`;
                 msg += `• Distancia: ${calculatedBlocks} cuadras\n`;
